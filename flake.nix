@@ -22,10 +22,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    veila = {
-      url = "github:naurissteins/Veila";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # veila = {
+    #   url = "github:naurissteins/Veila";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
