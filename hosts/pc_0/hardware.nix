@@ -29,6 +29,7 @@
 
       # initial ramdisk
       boot.initrd.availableKernelModules = [
+        "ahci" # standard SATA controllers
         "nvme" # disk
         "sd_mod" # maybe not needed?
         "xhci_pci" # usb controller
