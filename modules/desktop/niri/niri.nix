@@ -13,6 +13,11 @@
       ...
     }:
     let
+      wallpaper =
+        if config.style.theme == "pale" then
+          ../wallpapers/nature_of_fear.png
+        else
+          ../wallpapers/nature_of_fear.png;
       wallpaper-layer =
         { namespace, image }:
         {
@@ -71,12 +76,8 @@
       # Launch the awww daemon and set the wallpaper
       systemd.user.services =
         wallpaper-layer {
-          namespace = "workspace";
-          image = ../wallpapers/amora-b-celeste-7.jpg;
-        }
-        // wallpaper-layer {
           namespace = "backdrop";
-          image = ../wallpapers/amora-b-celeste-case.jpg;
+          image = wallpaper;
         }
         # swayidle idle daemon
         // {

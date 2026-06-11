@@ -9,7 +9,7 @@
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        users.cephyr = {
+        users.aki = {
           home.stateVersion = "26.05";
           gtk = {
             enable = true;

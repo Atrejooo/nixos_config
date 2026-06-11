@@ -1,7 +1,7 @@
 {
   keyboard = {
     xkb = {
-      layout = "de";
+      layout = "en";
     };
   };
   touchpad = {

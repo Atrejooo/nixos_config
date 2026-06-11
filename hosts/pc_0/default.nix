@@ -9,8 +9,8 @@
     specialArgs = { inherit shared; };
     modules = with self.nixosModules; [
       {
-        config.style.theme = "celeste";
-        config.style.keyboard = "colemak";
+        config.style.theme = "pale";
+        config.style.keyboard = "qwerty";
       }
       pc_0-disko
       pc_0-hardware

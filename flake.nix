@@ -36,6 +36,7 @@
         # color schemes
         themes = {
           celeste = import ./themes/celeste.nix;
+          pale = import ./themes/pale.nix;
         };
 
         # physical keyboard layouts

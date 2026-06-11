@@ -17,7 +17,7 @@
 
     # set keymap
     console.earlySetup = true;
-    console.keyMap = "de";
+    # console.keyMap = "de";
 
     # set locale
     i18n.defaultLocale = "en_GB.UTF-8";
@@ -31,7 +31,7 @@
       LC_TELEPHONE = "de_DE.UTF-8";
     };
     # user
-    users.users.cephyr = {
+    users.users.aki = {
       isNormalUser = true;
       description = "Primary user";
 
