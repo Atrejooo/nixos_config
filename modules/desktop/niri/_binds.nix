@@ -38,17 +38,18 @@ let
     };
 
     # top row left
-    "Mod+Q".spawn-sh = "alacritty -e yazi";
-    "Mod+Shift+Q".spawn-sh = "kitty -e yazi";
+    "Mod+Q".spawn = "alacritty";
     "Mod+W".spawn = "firefox";
-    "Mod+F".spawn = "alacritty";
-    "Mod+P".spawn-sh = "alacritty -e sh -c \"r && sleep 0.1\"";
-    "Mod+G".spawn = "signal-desktop";
-    "Mod+Shift+Ctrl+L".spawn-sh = "veila lock";
+    "Mod+E".spawn-sh = "alacritty -e yazi";
+    "Mod+Shift+E".spawn-sh = "kitty -e yazi";
+    "Mod+R".spawn-sh = "alacritty -e sh -c \"r && sleep 0.1\"";
+    "Mod+T".spawn = "signal-desktop";
+    "Mod+O" = _: {
+      props.repeat = false;
+      content.toggle-overview = _: { };
+    };
 
     # middle row left
-    "Mod+A".spawn-sh =
-      "if pgrep -x wlsunset >/dev/null; then pkill wlsunset; else wlsunset -t 3500 -S 00:00 -s 00:00 & fi";
     "Mod+S" = _: {
       props.allow-when-locked = true;
       content.spawn-sh = "grim -g \"$(slurp)\" - | wl-copy";
@@ -59,7 +60,7 @@ let
       content.spawn-sh = "grim - | wl-copy";
     };
     "Mod+Ctrl+Shift+S".spawn-sh = "grim";
-    "Mod+R".spawn-sh = "hyprpicker -aq";
+    "Mod+A".spawn-sh = "hyprpicker -aq";
 
     # bottom row left
     "Mod+C" = _: {
@@ -73,15 +74,14 @@ let
       props.repeat = false;
       content.spawn-sh = "wl-mirror $(niri msg --json focused-output | jq -r .name)";
     };
-    "Mod+B" = _: {
-      props.repeat = false;
-      content.toggle-overview = _: { };
-    };
+    "Mod+B".spawn-sh =
+      "if pgrep -x wlsunset >/dev/null; then pkill wlsunset; else wlsunset -t 3500 -S 00:00 -s 00:00 & fi";
 
     # dangerous keybinds
-    "Mod+Shift+Ctrl+I".quit = _: { skip-confirmation = true; };
-    "Mod+Shift+Ctrl+Y".spawn-sh = "shutdown now";
-    "Mod+Shift+Ctrl+Z".spawn-sh = "veila lock --wait-ready && systemctl suspend";
+    "Mod+Shift+M".quit = _: { skip-confirmation = true; };
+    "Mod+Shift+Ctrl+M".spawn-sh = "shutdown now";
+    "Mod+Shift+N".spawn-sh = "veila lock --wait-ready && systemctl suspend";
+    "Mod+N".spawn-sh = "veila lock";
 
     # workspaces / windows / columns
     "Mod+1".focus-workspace = "1";
@@ -116,8 +116,8 @@ let
     "Mod+Comma".consume-window-into-column = _: { };
     "Mod+Period".expel-window-from-column = _: { };
 
-    "Mod+M".switch-preset-column-width = _: { };
-    "Mod+Shift+M".switch-preset-column-width-back = _: { };
+    "Mod+G".switch-preset-column-width = _: { };
+    "Mod+Shift+G".switch-preset-column-width-back = _: { };
 
     "Mod+K".switch-preset-window-height = _: { };
     "Mod+Shift+K".switch-preset-window-height-back = _: { };

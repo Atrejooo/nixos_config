@@ -1,9 +1,9 @@
 {
-  flake.nixosModules.pc_0-hardware =
+  flake.nixosModules.pc0-hardware =
     { pkgs, lib, ... }:
     {
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-      networking.hostName = "pc_0";
+      networking.hostName = "pc0";
 
       # systemd-boot is chainloaded by the primary boot manager GRUB (external)
       boot.loader = {

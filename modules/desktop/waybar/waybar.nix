@@ -15,6 +15,7 @@
       environment.systemPackages = [
         self.packages.${pkgs.stdenv.hostPlatform.system}."waybar-${config.style.theme}"
         pkgs.lm_sensors
+        pkgs.pavucontrol
       ];
     };
 

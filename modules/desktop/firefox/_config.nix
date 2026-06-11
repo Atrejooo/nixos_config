@@ -47,6 +47,9 @@ let
     "browser.safebrowsing.malware.enabled" = false;
     "browser.safebrowsing.phishing.enabled" = false;
     "browser.safebrowsing.downloads.enabled" = false;
+
+    # visuals and features
+    "sidebar.verticalTabs" = true;
   };
 
   extensions = [

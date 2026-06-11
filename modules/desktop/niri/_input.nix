@@ -2,6 +2,7 @@
   keyboard = {
     xkb = {
       layout = "en";
+      options = "caps:escape";
     };
   };
   touchpad = {

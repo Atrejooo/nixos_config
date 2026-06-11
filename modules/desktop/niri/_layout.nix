@@ -1,6 +1,7 @@
 theme: {
   gaps = 2;
   center-focused-column = "never";
+  background-color = "#00330000";
 
   preset-column-widths = [
     { proportion = 0.33333; }
@@ -15,7 +16,7 @@ theme: {
   focus-ring.off = _: { };
 
   border = {
-    width = 2;
+    width = 3;
     urgent-color = "#${theme.textRed}";
     active-gradient = _: {
       props = [
@@ -29,20 +30,21 @@ theme: {
 
   shadow = {
     on = _: { };
-    softness = 30;
-    spread = 5;
+    softness = 0;
+    spread = 0;
     offset = _: {
       props = [
         { x = 0; }
-        { y = 8; }
+        { y = 6; }
       ];
     };
-    color = "#${theme.darkBase}";
+    color = "#${theme.lightBase}";
+    inactive-color = "#${theme.darkBase}";
   };
   struts = {
     left = 6;
     right = 6;
-    top = 12;
-    bottom = 12;
+    top = 10;
+    bottom = 10;
   };
 }

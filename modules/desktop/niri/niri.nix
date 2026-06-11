@@ -54,46 +54,58 @@
         };
     in
     {
-      environment.systemPackages = [
-        pkgs.hyprpicker
-        pkgs.wl-clipboard
-        pkgs.wlsunset
-        pkgs.xwayland-satellite
-        pkgs.grim
-        pkgs.slurp
-        pkgs.swayidle
-        pkgs.awww
-        pkgs.brightnessctl
-        pkgs.rose-pine-cursor
-        pkgs.wl-mirror
-        pkgs.jq
-      ];
-      programs.niri = {
-        enable = true;
-        package =
-          self.packages.${pkgs.stdenv.hostPlatform.system}."niri-${config.style.keyboard}-${config.style.theme}";
+      options.desktop = {
+        outputs = lib.mkOption {
+          type = lib.types.attrs;
+          default = { };
+          description = "output settings for niri";
+        };
       };
-      # Launch the awww daemon and set the wallpaper
-      systemd.user.services =
-        wallpaper-layer {
-          namespace = "backdrop";
-          image = wallpaper;
-        }
-        # swayidle idle daemon
-        // {
-          swayidle = {
-            partOf = [ "graphical-session.target" ];
-            after = [ "graphical-session.target" ];
-            requisite = [ "graphical-session.target" ];
-            wantedBy = [ "niri.service" ];
-            serviceConfig = {
-              Type = "simple";
-              ExecStart = "${lib.getExe pkgs.swayidle} -w timeout 300 'veila lock --wait-ready' timeout 500 'niri msg action power-off-monitors' timeout 600 'systemctl suspend'";
+
+      config = {
+        environment.systemPackages = [
+          pkgs.hyprpicker
+          pkgs.wl-clipboard
+          pkgs.wlsunset
+          pkgs.xwayland-satellite
+          pkgs.playerctl
+          pkgs.grim
+          pkgs.slurp
+          pkgs.swayidle
+          pkgs.awww
+          pkgs.brightnessctl
+          pkgs.rose-pine-cursor
+          pkgs.wl-mirror
+          pkgs.jq
+        ];
+        programs.niri = {
+          enable = true;
+          package =
+            self.packages.${pkgs.stdenv.hostPlatform.system}."niri-${config.style.keyboard}-${config.style.theme}";
+          # settings.outputs = config.desktop.outputs;
+        };
+        # Launch the awww daemon and set the wallpaper
+        systemd.user.services =
+          wallpaper-layer {
+            namespace = "backdrop";
+            image = wallpaper;
+          }
+          # swayidle idle daemon
+          // {
+            swayidle = {
+              partOf = [ "graphical-session.target" ];
+              after = [ "graphical-session.target" ];
+              requisite = [ "graphical-session.target" ];
+              wantedBy = [ "niri.service" ];
+              serviceConfig = {
+                Type = "simple";
+                ExecStart = "${lib.getExe pkgs.swayidle} -w timeout 300 'veila lock --wait-ready' timeout 500 'niri msg action power-off-monitors' timeout 600 'systemctl suspend'";
+              };
             };
           };
-        };
-      # Set the login command to launch niri
-      login.sessionCommand = "niri-session";
+        # Set the login command to launch niri
+        login.sessionCommand = "niri-session";
+      };
     };
 
   perSystem =
@@ -143,6 +155,12 @@
             spawn-at-startup = [ "waybar" ];
             spawn-sh-at-startup = [ ];
             input = import ./_input.nix;
+            outputs = {
+              "DP-2" = {
+                mode = "2560x1440@165.001";
+                scale = 1.2;
+              };
+            };
             layout = import ./_layout.nix shared.themes.${theme};
             binds = import ./_binds.nix keyboard;
             window-rules = import ./_window_rules.nix;

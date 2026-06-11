@@ -1,6 +1,6 @@
 { inputs, ... }:
 {
-  flake.nixosModules.pc_0-disko = {
+  flake.nixosModules.pc0-disko = {
     imports = [
       inputs.disko.nixosModules.disko
     ];

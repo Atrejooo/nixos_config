@@ -32,7 +32,7 @@
           nixos-status = "sudo git -C /etc/nixos status";
           nixos-add = "sudo git -C /etc/nixos add";
           nixos-commit = "sudo git -C /etc/nixos commit -m";
-          nixos-edit = "sudo hx /etc/nixos";
+          nixos-edit = "cd /etc/nixos && sudo zellij";
         };
       };
     };
