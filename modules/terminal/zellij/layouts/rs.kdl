@@ -1,0 +1,45 @@
+layout {
+    tab name=" 󰈺 "  {
+      pane split_direction="vertical" {
+        pane
+        pane 
+      }
+      
+      pane size=1 borderless=true {
+          plugin location="zellij:compact-bar" {
+            tooltip "F1"
+          }
+      }
+    }
+    tab name=" 󰈺 "  {
+      pane split_direction="vertical" {
+        pane 
+      }
+      
+      pane size=1 borderless=true {
+          plugin location="zellij:compact-bar" {
+            tooltip "F1"
+          }
+      }
+    }
+    tab name="  " focus=true {
+      pane edit="./src/main.rs";
+
+      pane size=1 borderless=true {
+          plugin location="zellij:compact-bar" {
+            tooltip "F1"
+          }
+      }
+    }
+    tab name=" 󰇥 " {
+      pane command="yazi" {
+        start_suspended true
+      }
+
+      pane size=1 borderless=true {
+          plugin location="zellij:compact-bar" {
+            tooltip "F1"
+          }
+      }
+    }
+}

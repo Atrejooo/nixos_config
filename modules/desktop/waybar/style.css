@@ -1,0 +1,221 @@
+
+* {
+  font-family: "Mango";
+  font-size: 20px;
+}
+
+window#waybar {
+  background: alpha(@dark_base, 0.3);
+  border-radius: 12px; /* Increased border radius */
+  border: 2px solid alpha(@light_main, 0.9);
+  margin: 0px; /* Increased margin */
+  padding: 0px;
+  min-height: 0px; /* Increased minimum height */
+}
+
+/* Main container for all modules */
+#waybar > box {
+  min-height: 0px; /* Ensure container is tall */
+  padding: 0px 0px; /* Vertical padding inside bar */
+}
+
+.pom {
+  text-shadow: 2px 4px 2px alpha(@dark_base, 1);
+  color: @txt_main;
+}
+
+button {
+  background: alpha(@dark_main, 0.7);
+  border-radius: 6px;
+  margin: 4px 2px;
+  font-size:16px; /* Base font size */
+  padding: 0px 10px;
+  min-width: 6px;
+  color: @txt_main;
+  transition: all 0.4s ease;
+  border: 2px solid transparent;
+}
+
+#workspaces button {
+}
+
+/* Active workspace with pulsating text */
+#workspaces button.active {
+  color: @txt_highlight;
+  background: alpha(@dark_main, 0.7);
+  text-shadow: 0px 0px 6px alpha(@light_highlight, 0.8);
+  border: 2px solid @light_highlight;
+  border-radius: 8px;
+  box-shadow: 0px 0px 8px alpha(@light_highlight, 0.7);
+  min-width: 29px;
+}
+
+#workspaces button:hover {
+  background: alpha(@dark_base, 0.7);
+  color: @txt_highlight;
+  text-shadow: 0px 0px 6px alpha(@light_highlight, 1);
+}
+
+#workspaces button.urgent {
+  background-color: @light_highlight;
+  color: @txt_dark;
+  animation: pulse-opacity 2s linear infinite;
+}
+
+@keyframes pulse-opacity {
+  0% {
+    box-shadow: 
+      3px 0px 10px 2px alpha(@light_highlight, 0.7);
+  }
+  25% {
+    box-shadow: 
+      3px 5px 10px 2px alpha(@light_highlight, 0.7);
+  } 
+  50% {
+    box-shadow: 
+      -3px 0px 10px 2px alpha(@light_highlight, 0.7);
+  }
+  75% {
+    box-shadow: 
+      0px -3px 10px 2px alpha(@light_highlight, 0.7);
+  }
+  100% {
+    box-shadow: 
+      3px 0px 10px 2px alpha(@light_highlight, 0.7);
+  }
+}
+#user,
+#clock,
+#idle_inhibitor,
+#battery,
+#bluetooth,
+#backlight,
+#power-profiles-daemon,
+#cpu,
+#memory,
+#temperature,
+#network,
+#privacy,
+#custom-system-info,
+#pulseaudio {
+  padding: 0px 12px;
+  color: @txt_main;
+  transition: all 0.3s ease;
+  text-shadow: 2px 4px 2px alpha(@dark_base, 1);
+}
+#user:hover,
+#clock:hover ,
+#battery:hover ,
+#idle_inhibitor:hover,
+#bluetooth:hover ,
+#backlight:hover ,
+#power-profiles-daemon:hover ,
+#cpu:hover ,
+#memory:hover ,
+#temperature:hover ,
+#network:hover ,
+#privacy:hover ,
+#custom-system-info:hover, 
+#pulseaudio:hover {
+  color: @txt_highlight;
+  text-shadow: 0px 0px 6px alpha(@light_highlight, 3);
+}
+#user {
+  color: @txt_blue;
+}
+
+#cpu,
+#memory {
+  color: @txt_green;
+}
+
+#pulseaudio {
+  color: @txt_green;
+}
+
+#bluetooth,
+#network {
+  color: @txt_blue;
+}
+
+#temperature {
+  color: @txt_red;
+}
+
+#power-profiles-daemon {
+  color: @txt_green;
+}
+
+#backlight {
+  color: @txt_cyan;
+}
+
+#battery {
+  color: @txt_cyan;
+}
+
+#idle_inhibitor,
+#clock {
+  color: @txt_main;
+}
+
+
+.modules-right {
+  padding: 0px 10px;
+}
+
+.modules-left {
+  padding: 0px 20px;
+}
+
+.modules-center {
+  padding: 0px 10px;
+}
+
+@keyframes blink {
+  to {
+    color: @txt_main;
+    text-shadow: 0px 0px 6px alpha(@light_highlight, 0.8);
+  }
+}
+
+/* Using steps() instead of linear as a timing function to limit cpu usage */
+#battery.critical:not(.charging) {
+  color: @txt_red;
+  text-shadow: 3px 3px 3px alpha(@txt_red, 0.3);
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+label:focus {
+  background-color: #000000;
+}
+/* Add this to your existing styles */
+#custom-system-monitor {
+  color: @txt_main;
+  padding: 0px 12px;
+  transition: all 0.3s ease;
+}
+
+#custom-system-monitor:hover {
+  background-color: alpha(@dark_highlight, 0.2);
+  border-radius: 4px;
+}
+
+/* Tooltip styling */
+tooltip {
+  background: alpha(@dark_base, 0.8);
+  border-radius: 8px;
+  border: 3px solid alpha(@light_main, 0.3);
+  padding: 8px;
+  color: @txt_main;
+}
+
+tooltip label {
+  font-family: "Mango";
+  font-size: 17px;
+  color: @txt_main;
+}
