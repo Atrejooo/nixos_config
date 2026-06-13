@@ -78,10 +78,22 @@
           pkgs.wlsunset
           pkgs.xwayland-satellite
         ];
-        services.xserver.xkb = {
-          layout = "us";
-          options = "caps:escape";
+
+        # rebind caps as esc
+        services.keyd = {
+          enable = true;
+          keyboards = {
+            default = {
+              ids = [ "*" ];
+              settings = {
+                main = {
+                  capslock = "esc";
+                };
+              };
+            };
+          };
         };
+
         programs.niri = {
           enable = true;
           package =
