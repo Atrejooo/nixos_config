@@ -37,7 +37,7 @@ let
       content.toggle-keyboard-shortcuts-inhibit = _: { };
     };
 
-    # top row left
+    # spawn programs - qwertyuiop
     "Mod+Q".spawn = "alacritty";
     "Mod+W".spawn = "firefox";
     "Mod+E".spawn-sh = "alacritty -e yazi";
@@ -49,7 +49,7 @@ let
       content.toggle-overview = _: { };
     };
 
-    # middle row left
+    # move and spawn acitons - asdfghjkl
     "Mod+S" = _: {
       props.allow-when-locked = true;
       content.spawn-sh = "grim -g \"$(slurp)\" - | wl-copy";
@@ -61,12 +61,15 @@ let
     };
     "Mod+Ctrl+Shift+S".spawn-sh = "grim";
     "Mod+A".spawn-sh = "hyprpicker -aq";
+    "Mod+G".switch-preset-column-width = _: { };
+    "Mod+Shift+G".switch-preset-column-width-back = _: { };
 
-    # bottom row left
+    # control - zxcvbnm
     "Mod+C" = _: {
       props.repeat = false;
       content.close-window = _: { };
     };
+    "Mod+X".spawn-sh = "pkill waybar || waybar";
     "Mod+V".toggle-window-floating = _: { };
     "Mod+Ctrl+V".switch-focus-between-floating-and-tiling = _: { };
     "Mod+Shift+V".fullscreen-window = _: { };
@@ -115,9 +118,6 @@ let
 
     "Mod+Comma".consume-window-into-column = _: { };
     "Mod+Period".expel-window-from-column = _: { };
-
-    "Mod+G".switch-preset-column-width = _: { };
-    "Mod+Shift+G".switch-preset-column-width-back = _: { };
 
     "Mod+K".switch-preset-window-height = _: { };
     "Mod+Shift+K".switch-preset-window-height-back = _: { };

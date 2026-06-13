@@ -4,7 +4,7 @@
   ...
 }:
 {
-  flake.nixosModules.veila =
+  flake.nixosModules.desktop =
     {
       pkgs,
       lib,

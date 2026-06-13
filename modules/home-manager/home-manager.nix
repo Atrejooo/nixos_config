@@ -22,15 +22,15 @@
           xdg.userDirs = {
             enable = true;
             createDirectories = true;
-            desktop = "$HOME/desktop";
-            documents = "$HOME/documents";
+            desktop = "$HOME/downloads";
+            documents = "$HOME/downloads";
             download = "$HOME/downloads";
-            music = "$HOME/music";
-            pictures = "$HOME/pictures";
-            projects = "$HOME/projects";
-            publicShare = "$HOME/public";
-            templates = "$HOME/templates";
-            videos = "$HOME/videos";
+            music = "$HOME/downloads";
+            pictures = "$HOME/downloads";
+            projects = "$HOME/downloads";
+            publicShare = "$HOME/downloads";
+            templates = "$HOME/downloads";
+            videos = "$HOME/downloads";
           };
         };
       };

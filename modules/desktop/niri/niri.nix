@@ -64,20 +64,24 @@
 
       config = {
         environment.systemPackages = [
-          pkgs.hyprpicker
-          pkgs.wl-clipboard
-          pkgs.wlsunset
-          pkgs.xwayland-satellite
-          pkgs.playerctl
-          pkgs.grim
-          pkgs.slurp
-          pkgs.swayidle
           pkgs.awww
           pkgs.brightnessctl
-          pkgs.rose-pine-cursor
-          pkgs.wl-mirror
+          pkgs.grim
+          pkgs.hyprpicker
           pkgs.jq
+          pkgs.playerctl
+          pkgs.rose-pine-cursor
+          pkgs.slurp
+          pkgs.swayidle
+          pkgs.wl-clipboard
+          pkgs.wl-mirror
+          pkgs.wlsunset
+          pkgs.xwayland-satellite
         ];
+        services.xserver.xkb = {
+          layout = "us";
+          options = "caps:escape";
+        };
         programs.niri = {
           enable = true;
           package =
@@ -155,12 +159,7 @@
             spawn-at-startup = [ "waybar" ];
             spawn-sh-at-startup = [ ];
             input = import ./_input.nix;
-            outputs = {
-              "DP-2" = {
-                mode = "2560x1440@165.001";
-                scale = 1.2;
-              };
-            };
+            outputs = import ./_outputs.nix;
             layout = import ./_layout.nix shared.themes.${theme};
             binds = import ./_binds.nix keyboard;
             window-rules = import ./_window_rules.nix;

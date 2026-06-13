@@ -15,13 +15,13 @@
 
         systemd-boot.edk2-uefi-shell.enable = true;
 
-        # systemd-boot.windows = {
-        #   "11-home" = {
-        #     title = "Windows 11 Home";
-        #     efiDeviceHandle = "FS1";
-        #     sortKey = "z_windows";
-        #   };
-        # };
+        systemd-boot.windows = {
+          "11-home" = {
+            title = "Windows 11 Home";
+            efiDeviceHandle = "HD1b";
+            sortKey = "z_windows";
+          };
+        };
       };
 
       boot.kernelPackages = pkgs.linuxPackages;

@@ -7,14 +7,15 @@
     {
       services.udisks2.enable = true;
       environment.systemPackages = [
-        pkgs.tig
-        pkgs.python3
-        pkgs.tokei
-        pkgs.fzf
-        pkgs.ripgrep
-        pkgs.fd
         pkgs.bat
+        pkgs.btop
         pkgs.dust
+        pkgs.fd
+        pkgs.fzf
+        pkgs.python3
+        pkgs.ripgrep
+        pkgs.tig
+        pkgs.tokei
       ];
     };
 }
