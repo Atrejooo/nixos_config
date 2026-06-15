@@ -151,7 +151,7 @@ theme: {
       fg = "pale";
     };
     "ui.virtual.jump-label" = {
-      fg = "emph_2";
+      fg = "emph_1";
     };
 
     "ui.menu" = {

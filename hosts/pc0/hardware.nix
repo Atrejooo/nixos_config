@@ -45,6 +45,7 @@
           "nvidia-settings"
           "steam"
           "steam-unwrapped"
+          "bambu-studio"
         ];
       # Enable OpenGL
       hardware.graphics = {
@@ -68,7 +69,7 @@
       };
 
       # AMD CPU updates
-      hardware.cpu.amd.updateMicrocode = true;
+      hardware.cpu.intel.updateMicrocode = true;
 
       # Trim SSD
       services.fstrim.enable = true;

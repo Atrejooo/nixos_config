@@ -12,7 +12,7 @@
     {
       options.login.sessionCommand = lib.mkOption {
         type = lib.types.str;
-        default = "";
+        default = "bash";
         example = "niri-session";
         description = "The command to be run by tuigreet.";
       };
