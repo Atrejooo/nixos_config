@@ -25,6 +25,7 @@
         "nvme" # NVMe SSD
         "sd_mod" # Generic SCSI/SD block device
         "xhci_pci" # USB 3.x host controller
+        "rtsx_pci_sdmmc" # for sd card readers
         "usbhid" # USB keyboards
         "usb_storage" # boot from USB (recovery)
         "i915" # Intel GPU early KMS
