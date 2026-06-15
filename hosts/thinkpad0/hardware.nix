@@ -62,7 +62,7 @@
         # powerManagement.finegrained = true;
 
         # PRIME offload: Intel GPU drives the display, NVIDIA is used for on‑demand rendering
-        hardware.nvidia.prime = {
+        prime = {
           offload.enable = true;
 
           intelBusId = "PCI:0:2:0";
