@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.thinkpad0.hardware =
+  flake.nixosModules.thinkpad0-hardware =
     { pkgs, lib, ... }:
     {
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
