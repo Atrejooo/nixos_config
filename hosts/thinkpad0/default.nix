@@ -12,7 +12,7 @@
         config.style.theme = "pale";
         config.style.keyboard = "qwerty";
       }
-      thinkpad0-disko
+      # thinkpad0-disko
       thinkpad0-hardware
       # home-manager
       base
