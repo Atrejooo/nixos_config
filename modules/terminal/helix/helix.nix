@@ -17,6 +17,8 @@
         pkgs.nixfmt
         pkgs.nixd
         pkgs.netcat-openbsd
+        # color code previews
+        pkgs.uwu-colors
       ];
       environment.variables = {
         EDITOR = "hx";
@@ -39,7 +41,7 @@
             inherit lib;
             inherit keyboard;
           };
-          languages = import ./_languages.nix;
+          languages = import ./_languages.nix pkgs;
           themes = import ./_themes.nix shared.themes.${theme};
         };
     in

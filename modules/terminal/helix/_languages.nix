@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   language-server.gdscript-lsp = {
     command = "nc";
@@ -6,6 +7,11 @@
       "6005"
     ];
   };
+  # color code previews
+  language-server.uwu_colors = {
+    command = "${pkgs.uwu-colors}/bin/uwu_colors";
+  };
+
   language = [
     {
       name = "c-sharp";
@@ -53,7 +59,32 @@
       formatter = {
         command = "nixfmt";
       };
-      language-servers = [ "nixd" ];
+      language-servers = [
+        "nixd"
+        "uwu_colors"
+      ];
     }
+
+    # {
+    #   name = "toml";
+    #   file-types = [ "toml" ];
+    #   language-servers = [
+    #     "uwu_colors"
+    #   ];
+    # }
+    # {
+    #   name = "txt";
+    #   file-types = [ "txt" ];
+    #   language-servers = [
+    #     "uwu_colors"
+    #   ];
+    # }
+    # {
+    #   name = "md";
+    #   file-types = [ "txt" ];
+    #   language-servers = [
+    #     "uwu_colors"
+    #   ];
+    # }
   ];
 }

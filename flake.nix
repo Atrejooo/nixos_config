@@ -26,6 +26,12 @@
       url = "github:naurissteins/Veila";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # # used by helix for color code previews
+    # uwu-colors = {
+    #   url = "github:q60/uwu_colors";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs =
