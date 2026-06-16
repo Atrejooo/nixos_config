@@ -87,7 +87,7 @@ Follow the official [NixOS manual](https://nixos.org/manual/nixos/stable/#ch-ins
 Once you are booted into the image, and have a terminal with internet connection, follow these installation steps instead:
 - make a new host in `hosts/` by duplicating, renaming and edeting an existing host
   - `thinkpad0` for `install.sh` and `pc0` for `Disko`
-- in the ISO use `nixos-gnereate-config --show-hardware-config` to edit your hosts `hosts/<hostname>/hardware.nix` module to contain the required kernel modules (`boot.initrd.availableKernelModules`)
+- in the ISO use `nixos-generate-config --show-hardware-config` to edit your hosts `hosts/<hostname>/hardware.nix` module to contain the required kernel modules (`boot.initrd.availableKernelModules`)
 - remember to add settings for Graphics driver and CPU manufacturers (e.g. `hardware.nvidia` and `hardware.cpu.intel.updateMicrocode`)
 - you can also ask an LLM what you need to change in `hosts/<hostname>/hardware.nix` for your specific machine 
 
@@ -95,6 +95,7 @@ Once you are booted into the image, and have a terminal with internet connection
 - the `hardware.nix` already defines, how the file system is to be decrypted (opening `LUKS` container) and mounted
 - `install.sh` formats the disk and installs this flake automatically
 - Run `curl -sL https://raw.githubusercontent.com/Atrejooo/nixos_config/main/install.sh > ./install.sh && chmod +x ./install.sh` to fetch the script
+- Run `lsblk` to verify the name of the block device you want to install to (device, not partition!).
 - Run `sudo ./install.sh --disk <disk> --host <host> --swap-size <swap-size> --username <username>`
   - Required:
     - `<disk>` -> Device to install to (e.g. `/dev/nvme0n1`)
