@@ -1,10 +1,9 @@
-{ inputs, ... }:
 {
   flake.nixosModules.thinkpad0-hardware =
     { pkgs, lib, ... }:
     {
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-      networking.hostName = "thinkpad0";
+      networking.hostName = "thinkpad0"; # needs to match host module name!
 
       # -- Boot loader -----------------------
       boot.loader = {
@@ -27,6 +26,45 @@
         "usb_storage"
         "i915"
       ];
+
+      # -- Unfree packages -------------------
+      nixpkgs.config.allowUnfreePredicate =
+        pkg:
+        builtins.elem (lib.getName pkg) [
+          "nvidia-x11"
+          "nvidia-settings"
+          "nvidia-kernel-modules"
+          "steam"
+          "steam-unwrapped"
+          "bambu-studio"
+        ];
+
+      # -- Graphics --------------------------
+      hardware.graphics.enable = true;
+      services.xserver.videoDrivers = [ "nvidia" ];
+
+      hardware.nvidia = {
+        open = false;
+        modesetting.enable = true;
+        powerManagement.enable = true;
+        prime = {
+          offload.enable = true;
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:45:0:0";
+        };
+      };
+
+      # -- CPU & SSD maintenance -------------
+      hardware.cpu.intel.updateMicrocode = true;
+      services.fstrim.enable = true;
+
+      services.btrfs.autoScrub = {
+        enable = true;
+        interval = "monthly";
+        fileSystems = [ "/" ];
+      };
+
+      boot.tmp.useTmpfs = true;
 
       # -- LUKS ------------------------------
       boot.initrd.luks.devices.crypted = {
@@ -77,43 +115,5 @@
         }
       ];
 
-      # -- Unfree packages -------------------
-      nixpkgs.config.allowUnfreePredicate =
-        pkg:
-        builtins.elem (lib.getName pkg) [
-          "nvidia-x11"
-          "nvidia-settings"
-          "nvidia-kernel-modules"
-          "steam"
-          "steam-unwrapped"
-          "bambu-studio"
-        ];
-
-      # -- Graphics --------------------------
-      hardware.graphics.enable = true;
-      services.xserver.videoDrivers = [ "nvidia" ];
-
-      hardware.nvidia = {
-        open = false;
-        modesetting.enable = true;
-        powerManagement.enable = true;
-        prime = {
-          offload.enable = true;
-          intelBusId = "PCI:0:2:0";
-          nvidiaBusId = "PCI:45:0:0";
-        };
-      };
-
-      # -- CPU & SSD maintenance -------------
-      hardware.cpu.intel.updateMicrocode = true;
-      services.fstrim.enable = true;
-
-      services.btrfs.autoScrub = {
-        enable = true;
-        interval = "monthly";
-        fileSystems = [ "/" ];
-      };
-
-      boot.tmp.useTmpfs = true;
     };
 }
