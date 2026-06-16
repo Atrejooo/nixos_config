@@ -26,7 +26,7 @@
         inherit pkgs;
         flags."--no-config" = false;
         configFile.content = builtins.readFile ./config.fish;
-        abbreviations = {
+        abbreviations = rec {
           nixos-add = "sudo git -C /etc/nixos add";
           nixos-commit = "sudo git -C /etc/nixos commit -m";
           nixos-edit = "cd /etc/nixos && sudo zellij";
@@ -36,6 +36,7 @@
           nixos-status = "sudo git -C /etc/nixos status";
           nixos-switch = "sudo nixos-rebuild switch --flake /etc/nixos";
           nixos-test = "sudo nixos-rebuild test --flake /etc/nixos";
+          nixos-update = "cd /etc/nixos && sudo nix flake update && ${nixos-switch}";
         };
       };
     };

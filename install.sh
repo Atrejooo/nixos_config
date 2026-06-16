@@ -133,10 +133,12 @@ if [[ -z "$USERNAME" ]]; then
 fi
 
 
-echo "------------------------------------------------"
-echo "              Set root password"
-echo "------------------------------------------------"
-nixos-enter --root /mnt -c "passwd root"
+# happens automatically from nixos-install
+# echo "------------------------------------------------"
+# echo "              Set root password"
+# echo "------------------------------------------------"
+# nixos-enter --root /mnt -c "passwd root"
+ 
 echo "------------------------------------------------"
 echo "            Set ${USERNAME}'s password"
 echo "------------------------------------------------"
