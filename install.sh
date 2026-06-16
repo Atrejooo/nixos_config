@@ -74,8 +74,8 @@ sleep 1   # let the kernel forget any cached signatures
 # ── EFI ───────────────────────────────────────────
 mkfs.vfat -F32 "/dev/disk/by-partlabel/$EFI_LABEL"
 
-# ── LUKS (pipe YES to skip the "are you sure?" prompt) ─
-echo "YES" | cryptsetup luksFormat "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
+# ── LUKS (force overwrite, no prompt) ─────────────
+cryptsetup luksFormat "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
 cryptsetup open "/dev/disk/by-partlabel/$LUKS_PARTLABEL" "$LUKS_NAME"
 
 # ── Btrfs ─────────────────────────────────────────
