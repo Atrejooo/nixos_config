@@ -6,7 +6,7 @@
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
       networking.hostName = "thinkpad0";
 
-      # ── Boot loader ─────────────────────────
+      # -- Boot loader -----------------------
       boot.loader = {
         grub.enable = false;
         systemd-boot.enable = true;
@@ -14,7 +14,7 @@
         efi.canTouchEfiVariables = true;
       };
 
-      # ── Kernel & firmware ───────────────────
+      # -- Kernel & firmware -----------------
       boot.kernelPackages = pkgs.linuxPackages;
       hardware.enableRedistributableFirmware = true;
       boot.initrd.availableKernelModules = [
@@ -28,39 +28,47 @@
         "i915"
       ];
 
-      # ── LUKS ────────────────────────────────
+      # -- LUKS ------------------------------
       boot.initrd.luks.devices.crypted = {
-        device = "/dev/disk/by-partlabel/luks";   # matches label in install.sh
+        device = "/dev/disk/by-partlabel/luks"; # matches label in install.sh
         allowDiscards = true;
       };
 
-      # ── Filesystems ─────────────────────────
+      # -- Filesystems -----------------------
       fileSystems."/" = {
-        device = "/dev/mapper/crypted";
+        device = "/dev/mapper/crypted"; # matches label in install.sh
         fsType = "btrfs";
-        options = [ "subvol=@" "compress=zstd" "noatime" ];
+        options = [
+          "subvol=@"
+          "compress=zstd"
+          "noatime"
+        ];
       };
 
       fileSystems."/home" = {
         device = "/dev/mapper/crypted";
         fsType = "btrfs";
-        options = [ "subvol=@home" "compress=zstd" "noatime" ];
+        options = [
+          "subvol=@home"
+          "compress=zstd"
+          "noatime"
+        ];
       };
 
       fileSystems."/boot" = {
-        device = "/dev/disk/by-partlabel/ESP";   # matches label in install.sh
+        device = "/dev/disk/by-partlabel/ESP"; # matches label in install.sh
         fsType = "vfat";
-        options = [ "umask=0077" ];               # optional, as in your disko config
+        options = [ "umask=0077" ]; # correct accessablility rights
       };
 
       fileSystems."/.swap" = {
         device = "/dev/mapper/crypted";
         fsType = "btrfs";
         options = [ "subvol=@swap" ];
-        neededForBoot = false;                    # not needed at boot
+        neededForBoot = false; # not needed at boot
       };
 
-      # ── Swap ────────────────────────────────
+      # -- Swap ------------------------------
       swapDevices = [
         {
           device = "/.swap/swapfile";
@@ -69,7 +77,7 @@
         }
       ];
 
-      # ── Unfree packages ─────────────────────
+      # -- Unfree packages -------------------
       nixpkgs.config.allowUnfreePredicate =
         pkg:
         builtins.elem (lib.getName pkg) [
@@ -81,7 +89,7 @@
           "bambu-studio"
         ];
 
-      # ── Graphics ────────────────────────────
+      # -- Graphics --------------------------
       hardware.graphics.enable = true;
       services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -96,7 +104,7 @@
         };
       };
 
-      # ── CPU & SSD maintenance ───────────────
+      # -- CPU & SSD maintenance -------------
       hardware.cpu.intel.updateMicrocode = true;
       services.fstrim.enable = true;
 

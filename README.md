@@ -85,10 +85,30 @@ freely available on the artists page [here](https://amora.ink/).
 ## Installation
 Follow the official [NixOS manual](https://nixos.org/manual/nixos/stable/#ch-installation) (minimal ISO image, manual installation) up the section 'networking'.
 Once you are booted into the image, and have a terminal with internet connection, follow these installation steps instead:
+- make a new host in `hosts/` by duplicating, renaming and edeting an existing host
+  - `thinkpad0` for `install.sh` and `pc0` for `Disko`
+- in the ISO use `nixos-gnereate-config --show-hardware-config` to edit your hosts `hosts/<hostname>/hardware.nix` module to contain the required kernel modules (`boot.initrd.availableKernelModules`)
+- remember to add settings for Graphics driver and CPU manufacturers (e.g. `hardware.nvidia` and `hardware.cpu.intel.updateMicrocode`)
+- you can also ask an LLM what you need to change in `hosts/<hostname>/hardware.nix` for your specific machine 
+
+### With `install.sh` (recommended)
+- the `hardware.nix` already defines, how the file system is to be decrypted (opening `LUKS` container) and mounted
+- `install.sh` formats the disk and installs this flake automatically
+- Run `curl -sL https://raw.githubusercontent.com/Atrejooo/nixos_config/main/install.sh > ./install.sh && chmod +x ./install.sh` to fetch the script
+- Run `sudo ./install.sh --disk <disk> --host <host> --swap-size <swap-size> --username <username>`
+  - Required:
+    - `<disk>` -> Device to install to (e.g. `/dev/nvme0n1`)
+    - `<host>` -> NixOS host name (e.g. `thinkpad0`)(installs github:Atrejooo/nixos_config#<host>)
+  - Optional:
+    - `<swap-size>` -> swap file size (default: `32G`)
+    - `<username>` -> default user to set password for (will be asked if omitted)
+    - `<help>` -> show help message 
+
+### With `Disko`
 - Run `lsblk` to verify the name of the block device you want to install to (device, not partition!).
 - Run `nix --extra-experimental-features 'nix-command flakes' run 'github:nix-community/disko/latest#disko-install' -- --write-efi-boot-entries --flake <flake> --mode format --disk main <device>` to install the configuration.
-  - \<flake>: the flake defining your NixOS config and its name, e.g. github:cephyr-games/nixos-config#ruvyn
-  - \<device>: the block device that will be **irreversibly overwritten** with the new NixOS system, e.g. /dev/nvme0n1
+  - \<flake>: the flake defining your NixOS config and its name, e.g. `github:Atrejooo/nixos_config#pc0`
+  - \<device>: the block device that will be **irreversibly overwritten** with the new NixOS system, e.g. `/dev/nvme0n1`
   - Omit '--write-efi-boot-entries' if the bootloader of NixOS should not have an efi boot entry, for example to instead chainload it from another bootloader.
   - You will be prompted for the LUKS passphrase by the installer.
   - Your entire NixOS config will be evaluated into /nix/store before installation can start.

@@ -21,7 +21,6 @@ Required:
 
 Optional:
   --swap-size     Swap file size (default: 32G)
-  --luks-name     LUKS mapper name (default: crypted)
   --username      Normal user to set password for (will be asked if omitted)
   --help          Show this message
 EOF
@@ -34,7 +33,6 @@ while [[ $# -gt 0 ]]; do
         --disk)        DISK="$2"; shift 2;;
         --host)        HOST="$2"; shift 2;;
         --swap-size)   SWAP_SIZE="$2"; shift 2;;
-        --luks-name)   LUKS_NAME="$2"; shift 2;;
         --username)    USERNAME="$2"; shift 2;;
         --help|-h)     usage;;
         *)             echo "Unknown option: $1"; usage;;
@@ -53,6 +51,9 @@ echo "Host: $HOST  |  Flake: github:Atrejooo/nixos_config#${HOST}"
 read -p "Continue? (yes/no): " answer </dev/tty
 [[ "$answer" == "yes" ]] || exit 1
 
+echo "------------------------------------------------"
+echo "        Formatting ${DISK}"
+echo "------------------------------------------------"
 # ── wipe & partition ──────────────────────────────
 wipefs -af "$DISK"
 
@@ -74,10 +75,16 @@ sleep 1   # let the kernel forget any cached signatures
 # ── EFI ───────────────────────────────────────────
 mkfs.vfat -F32 "/dev/disk/by-partlabel/$EFI_LABEL"
 
+echo "------------------------------------------------"
+echo "        Setting up hardware encryption"
+echo "------------------------------------------------"
 # ── LUKS (force overwrite, no prompt) ─────────────
 cryptsetup luksFormat "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
 cryptsetup open "/dev/disk/by-partlabel/$LUKS_PARTLABEL" "$LUKS_NAME"
 
+echo "------------------------------------------------"
+echo "        Building file system"
+echo "------------------------------------------------"
 # ── Btrfs ─────────────────────────────────────────
 mkfs.btrfs -f "/dev/mapper/$LUKS_NAME"
 
@@ -102,6 +109,7 @@ mount -o subvol=@swap \
     "/dev/mapper/$LUKS_NAME" /mnt/.swap
 
 mount "/dev/disk/by-partlabel/$EFI_LABEL" /mnt/boot
+chmod 700 /mnt/boot   # <- fix world-accessiblility 
 
 # ── swapfile ──────────────────────────────────────
 truncate -s 0 /mnt/.swap/swapfile
@@ -110,19 +118,30 @@ fallocate -l "$SWAP_SIZE" /mnt/.swap/swapfile
 chmod 600 /mnt/.swap/swapfile
 mkswap /mnt/.swap/swapfile
 
+echo "------------------------------------------------"
+echo "              Installing NixOS!"
+echo "------------------------------------------------"
 # ── install NixOS ─────────────────────────────────
 nixos-install --root /mnt --flake "github:Atrejooo/nixos_config#${HOST}"
 
 # ── set passwords (always from terminal) ──────────
+echo "------------------------------------------------"
+echo "   Setting passwords for root and ${USERNAME}"
+echo "------------------------------------------------"
 if [[ -z "$USERNAME" ]]; then
     read -p "Enter the username for which to set a password: " USERNAME </dev/tty
 fi
 
-echo "------------------------------------------------"
-echo "Setting passwords for root and ${USERNAME}…"
-echo "------------------------------------------------"
 
+echo "------------------------------------------------"
+echo "              Set root password"
+echo "------------------------------------------------"
 nixos-enter --root /mnt -c "passwd root"
+echo "------------------------------------------------"
+echo "            Set ${USERNAME}'s password"
+echo "------------------------------------------------"
 nixos-enter --root /mnt -c "passwd $USERNAME"
 
-echo "Done. You can now reboot."
+echo "------------------------------------------------"
+echo "               DONE! Reboot now!"
+echo "------------------------------------------------"
