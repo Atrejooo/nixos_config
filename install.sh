@@ -66,6 +66,9 @@ parted --script "$DISK" \
 
 udevadm settle
 
+# ── Wipe partition signatures (LUKS header etc.) ─
+wipefs -af "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
+
 # ── EFI ───────────────────────────────────────────
 mkfs.vfat -F32 "/dev/disk/by-partlabel/$EFI_LABEL"
 
