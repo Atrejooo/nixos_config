@@ -47,10 +47,10 @@ if [[ -z "$DISK" || -z "$HOST" ]]; then
     usage
 fi
 
-# ── safety check ──────────────────────────────────
+# ── safety check (ALWAYS read from terminal) ──────
 echo "WARNING: ALL DATA ON ${DISK} WILL BE DESTROYED"
 echo "Host: $HOST  |  Flake: github:Atrejooo/nixos_config#${HOST}"
-read -p "Continue? (yes/no): " answer
+read -p "Continue? (yes/no): " answer </dev/tty
 [[ "$answer" == "yes" ]] || exit 1
 
 # ── wipe & partition ──────────────────────────────
@@ -66,14 +66,16 @@ parted --script "$DISK" \
 
 udevadm settle
 
-# ── Wipe partition signatures (LUKS header etc.) ─
+# ── Wipe partition signatures (old LUKS header) ──
 wipefs -af "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
+udevadm settle
+sleep 1   # let the kernel forget any cached signatures
 
 # ── EFI ───────────────────────────────────────────
 mkfs.vfat -F32 "/dev/disk/by-partlabel/$EFI_LABEL"
 
-# ── LUKS ──────────────────────────────────────────
-cryptsetup luksFormat "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
+# ── LUKS (force overwrite, no prompt) ─────────────
+cryptsetup luksFormat --force "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
 cryptsetup open "/dev/disk/by-partlabel/$LUKS_PARTLABEL" "$LUKS_NAME"
 
 # ── Btrfs ─────────────────────────────────────────
@@ -111,16 +113,16 @@ mkswap /mnt/.swap/swapfile
 # ── install NixOS ─────────────────────────────────
 nixos-install --root /mnt --flake "github:Atrejooo/nixos_config#${HOST}"
 
-# ── set passwords ─────────────────────────────────
+# ── set passwords (always from terminal) ──────────
 if [[ -z "$USERNAME" ]]; then
-    read -p "Enter the username for which to set a password: " USERNAME
+    read -p "Enter the username for which to set a password: " USERNAME </dev/tty
 fi
 
 echo "------------------------------------------------"
-echo "You must set passwords for both root and ${USERNAME} before rebooting."
+echo "Setting passwords for root and ${USERNAME}…"
 echo "------------------------------------------------"
 
-nixos-enter -c "passwd root"     # will prompt interactively
-nixos-enter -c "passwd $USERNAME"
+nixos-enter --root /mnt -c "passwd root"
+nixos-enter --root /mnt -c "passwd $USERNAME"
 
 echo "Done. You can now reboot."
