@@ -1,11 +1,11 @@
 {
-  flake.nixosModules.thinkpad0-hardware =
+  flake.nixosModules.framework0-hardware =
     { shared, pkgs, lib, ... }: let
       l = shared.installLabels;
     in
     {
       nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-      networking.hostName = "thinkpad0"; # needs to match host module name!
+      networking.hostName = "framework0"; # needs to match host module name!
 
       # -- Boot loader -----------------------
       boot.loader = {
@@ -19,45 +19,40 @@
       boot.kernelPackages = pkgs.linuxPackages;
       hardware.enableRedistributableFirmware = true;
       boot.initrd.availableKernelModules = [
-        "ahci"
         "nvme"
-        "sd_mod"
         "xhci_pci"
-        "rtsx_pci_sdmmc"
-        "usbhid"
+        "thunderbolt"
         "usb_storage"
-        "i915"
+        "sd_mod"
       ];
+
+      # Workaround for panel self-refresh (PSR) hangs
+      # https://community.frame.work/t/fedora-kde-becomes-suddenly-slow/58459
+      # https://gitlab.freedesktop.org/drm/amd/-/issues/3647
+      boot.kernelParams = [ "amdgpu.dcdebugmask=0x10" ];
 
       # -- Unfree packages -------------------
       nixpkgs.config.allowUnfreePredicate =
         pkg:
         builtins.elem (lib.getName pkg) [
-          "nvidia-x11"
-          "nvidia-settings"
-          "nvidia-kernel-modules"
           "steam"
           "steam-unwrapped"
           "bambu-studio"
         ];
 
       # -- Graphics --------------------------
-      hardware.graphics.enable = true;
-      services.xserver.videoDrivers = [ "nvidia" ];
-
-      hardware.nvidia = {
-        open = false;
-        modesetting.enable = true;
-        powerManagement.enable = true;
-        prime = {
-          offload.enable = true;
-          intelBusId = "PCI:0:2:0";
-          nvidiaBusId = "PCI:45:0:0";
-        };
+      hardware.graphics = {
+        enable = true;
+        enable32Bit = true; # for Steam/proton
       };
+      hardware.amdgpu.initrd.enable = true;
+
+      # -- Power management -------------------
+      services.power-profiles-daemon.enable = true;
+      services.fwupd.enable = true;
 
       # -- CPU & SSD maintenance -------------
-      hardware.cpu.intel.updateMicrocode = true;
+      hardware.cpu.amd.updateMicrocode = true;
       services.fstrim.enable = true;
 
       services.btrfs.autoScrub = {

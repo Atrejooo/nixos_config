@@ -39,6 +39,8 @@
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       # define attributes available in every module
       _module.args.shared = rec {
+        installLabels = import ./install/_labels.nix;
+
         # color schemes
         themes = {
           celeste = import ./themes/celeste.nix;
@@ -84,6 +86,7 @@
         (inputs.import-tree [
           ./modules
           ./hosts
+          ./install
         ])
       ];
     };

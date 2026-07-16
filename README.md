@@ -86,12 +86,20 @@ freely available on the artists page [here](https://amora.ink/).
 Follow the official [NixOS manual](https://nixos.org/manual/nixos/stable/#ch-installation) (minimal ISO image, manual installation) up the section 'networking'.
 Once you are booted into the image, and have a terminal with internet connection, follow these installation steps instead:
 - make a new host in `hosts/` by duplicating, renaming and edeting an existing host
-  - `thinkpad0` for `install.sh` and `pc0` for `Disko`
+  - new hosts: add an `install-config.nix` and register in `install/default.nix`
+  - existing hosts: `thinkpad0` for `install.sh`/`nix run`, `pc0` for `Disko`
 - in the ISO use `nixos-generate-config --show-hardware-config` to edit your hosts `hosts/<hostname>/hardware.nix` module to contain the required kernel modules (`boot.initrd.availableKernelModules`)
 - remember to add settings for Graphics driver and CPU manufacturers (e.g. `hardware.nvidia` and `hardware.cpu.intel.updateMicrocode`)
 - you can also ask an LLM what you need to change in `hosts/<hostname>/hardware.nix` for your specific machine 
 
-### With `install.sh` (recommended)
+### With `nix run` (recommended for new hosts)
+- the `hardware.nix` already defines, how the file system is to be decrypted and mounted
+- Partition labels (`luks`, `ESP`, `crypted`) are defined globally in `install/_labels.nix` and referenced by both the installer and `hardware.nix`
+- Per-host config (disk device, swap size) in `hosts/<host>/install-config.nix`
+- Run `sudo nix run github:Atrejooo/nixos_config#install -- --host <host>`
+- Optional overrides: `--swap-size 16G --username aki`
+
+### With `install.sh`
 - the `hardware.nix` already defines, how the file system is to be decrypted (opening `LUKS` container) and mounted
 - `install.sh` formats the disk and installs this flake automatically
 - Run `curl -sL https://raw.githubusercontent.com/Atrejooo/nixos_config/main/install.sh > ./install.sh && chmod +x ./install.sh` to fetch the script

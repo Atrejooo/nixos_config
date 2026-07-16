@@ -20,9 +20,12 @@ Required:
   --host          NixOS host name (installs github:Atrejooo/nixos_config#<host>)
 
 Optional:
-  --swap-size     Swap file size (default: 32G)
-  --username      Normal user to set password for (will be asked if omitted)
-  --help          Show this message
+  --swap-size         Swap file size (default: 32G)
+  --username          Normal user to set password for (will be asked if omitted)
+  --luks-partlabel    LUKS partition label (default: luks)
+  --efi-label         EFI partition label (default: ESP)
+  --luks-name         LUKS mapper name (default: crypted)
+  --help              Show this message
 EOF
     exit 1
 }
@@ -32,9 +35,12 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
         --disk)        DISK="$2"; shift 2;;
         --host)        HOST="$2"; shift 2;;
-        --swap-size)   SWAP_SIZE="$2"; shift 2;;
-        --username)    USERNAME="$2"; shift 2;;
-        --help|-h)     usage;;
+        --swap-size)       SWAP_SIZE="$2"; shift 2;;
+        --username)        USERNAME="$2"; shift 2;;
+        --luks-partlabel)  LUKS_PARTLABEL="$2"; shift 2;;
+        --efi-label)       EFI_LABEL="$2"; shift 2;;
+        --luks-name)       LUKS_NAME="$2"; shift 2;;
+        --help|-h)         usage;;
         *)             echo "Unknown option: $1"; usage;;
     esac
 done
@@ -52,7 +58,7 @@ read -p "Continue? (yes/no): " answer </dev/tty
 [[ "$answer" == "yes" ]] || exit 1
 
 echo "------------------------------------------------"
-echo "        Formatting ${DISK}"
+echo "           Formatting ${DISK}"
 echo "------------------------------------------------"
 # ── wipe & partition ──────────────────────────────
 wipefs -af "$DISK"
@@ -83,7 +89,7 @@ cryptsetup luksFormat "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
 cryptsetup open "/dev/disk/by-partlabel/$LUKS_PARTLABEL" "$LUKS_NAME"
 
 echo "------------------------------------------------"
-echo "        Building file system"
+echo "           Building file system"
 echo "------------------------------------------------"
 # ── Btrfs ─────────────────────────────────────────
 mkfs.btrfs -f "/dev/mapper/$LUKS_NAME"
