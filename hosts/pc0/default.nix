@@ -32,6 +32,7 @@
       home-manager
       base
       terminal
+      opencode
       desktop
       # desktop-home
       steam
