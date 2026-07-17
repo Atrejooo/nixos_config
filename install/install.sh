@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ── defaults ──────────────────────────────────────
+# -- defaults --------------------------------------
 DISK=""
 HOST=""
 SWAP_SIZE="32G"
@@ -10,7 +10,7 @@ EFI_LABEL="ESP"
 LUKS_PARTLABEL="luks"
 USERNAME=""                 # optional – will be asked if not given
 
-# ── usage ─────────────────────────────────────────
+# -- usage -----------------------------------------
 usage() {
     cat <<EOF
 Usage: $0 --disk <disk> --host <host> [options]
@@ -30,7 +30,7 @@ EOF
     exit 1
 }
 
-# ── parse arguments ───────────────────────────────
+# -- parse arguments -------------------------------
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --disk)        DISK="$2"; shift 2;;
@@ -45,13 +45,13 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# ── validation ────────────────────────────────────
+# -- validation ------------------------------------
 if [[ -z "$DISK" || -z "$HOST" ]]; then
     echo "Error: --disk and --host are required."
     usage
 fi
 
-# ── safety check (ALWAYS read from terminal) ──────
+# -- safety check (ALWAYS read from terminal) ------
 echo "WARNING: ALL DATA ON ${DISK} WILL BE DESTROYED"
 echo "Host: $HOST  |  Flake: github:Atrejooo/nixos_config#${HOST}"
 read -p "Continue? (yes/no): " answer </dev/tty
@@ -60,7 +60,7 @@ read -p "Continue? (yes/no): " answer </dev/tty
 echo "------------------------------------------------"
 echo "           Formatting ${DISK}"
 echo "------------------------------------------------"
-# ── wipe & partition ──────────────────────────────
+# -- wipe & partition ------------------------------
 wipefs -af "$DISK"
 
 parted --script "$DISK" \
@@ -73,25 +73,25 @@ parted --script "$DISK" \
 
 udevadm settle
 
-# ── Wipe partition signatures (old LUKS header) ──
+# -- Wipe partition signatures (old LUKS header) --
 wipefs -af "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
 udevadm settle
 sleep 1   # let the kernel forget any cached signatures
 
-# ── EFI ───────────────────────────────────────────
+# -- EFI -------------------------------------------
 mkfs.vfat -F32 "/dev/disk/by-partlabel/$EFI_LABEL"
 
 echo "------------------------------------------------"
 echo "        Setting up hardware encryption"
 echo "------------------------------------------------"
-# ── LUKS (force overwrite, no prompt) ─────────────
+# -- LUKS (force overwrite, no prompt) -------------
 cryptsetup luksFormat "/dev/disk/by-partlabel/$LUKS_PARTLABEL"
 cryptsetup open "/dev/disk/by-partlabel/$LUKS_PARTLABEL" "$LUKS_NAME"
 
 echo "------------------------------------------------"
 echo "           Building file system"
 echo "------------------------------------------------"
-# ── Btrfs ─────────────────────────────────────────
+# -- Btrfs -----------------------------------------
 mkfs.btrfs -f "/dev/mapper/$LUKS_NAME"
 
 mount "/dev/mapper/$LUKS_NAME" /mnt
@@ -102,7 +102,7 @@ btrfs subvolume create /mnt/@swap
 
 umount /mnt
 
-# ── mount subvolumes ──────────────────────────────
+# -- mount subvolumes ------------------------------
 mount -o subvol=@,compress=zstd,noatime \
     "/dev/mapper/$LUKS_NAME" /mnt
 
@@ -117,7 +117,7 @@ mount -o subvol=@swap \
 mount "/dev/disk/by-partlabel/$EFI_LABEL" /mnt/boot
 chmod 700 /mnt/boot   # <- fix world-accessiblility 
 
-# ── swapfile ──────────────────────────────────────
+# -- swapfile --------------------------------------
 truncate -s 0 /mnt/.swap/swapfile
 chattr +C /mnt/.swap/swapfile
 fallocate -l "$SWAP_SIZE" /mnt/.swap/swapfile
@@ -127,10 +127,10 @@ mkswap /mnt/.swap/swapfile
 echo "------------------------------------------------"
 echo "              Installing NixOS!"
 echo "------------------------------------------------"
-# ── install NixOS ─────────────────────────────────
+# -- install NixOS ---------------------------------
 nixos-install --root /mnt --flake "github:Atrejooo/nixos_config#${HOST}"
 
-# ── set passwords (always from terminal) ──────────
+# -- set passwords (always from terminal) ----------
 echo "------------------------------------------------"
 echo "   Setting passwords for root and ${USERNAME}"
 echo "------------------------------------------------"
