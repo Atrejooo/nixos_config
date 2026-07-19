@@ -16,6 +16,8 @@
       wallpaper =
         if config.style.theme == "pale" then
           ../wallpapers/nature_of_fear.png
+        else if config.style.theme == "forest" then
+          ../wallpapers/forest_light.jpg
         else
           ../wallpapers/nature_of_fear.png;
       wallpaper-layer =

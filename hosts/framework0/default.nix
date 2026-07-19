@@ -9,7 +9,7 @@
     specialArgs = { inherit shared; };
     modules = with self.nixosModules; [
       {
-        config.style.theme = "pale";
+        config.style.theme = "forest";
         config.style.keyboard = "qwerty";
       }
       framework0-hardware

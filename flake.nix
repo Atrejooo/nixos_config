@@ -45,6 +45,7 @@
         themes = {
           celeste = import ./themes/celeste.nix;
           pale = import ./themes/pale.nix;
+          forest = import ./themes/forest.nix;
         };
 
         # physical keyboard layouts
