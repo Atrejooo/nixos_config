@@ -52,6 +52,7 @@ in
                 ${name})
                   DISK="${cfg.diskDevice}"
                   SWAP="${cfg.swapSize}"
+                  USERNAME="${if cfg.username != null then cfg.username else ""}"
                   ;;
               '') hostConfigs
             )}
@@ -66,6 +67,7 @@ in
             --disk "$DISK" \
             --host "$HOST" \
             --swap-size "$SWAP" \
+            --username "$USERNAME" \
             --luks-partlabel "${labels.luksPartlabel}" \
             --efi-label "${labels.efiLabel}" \
             --luks-name "${labels.luksName}" \

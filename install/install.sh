@@ -132,7 +132,7 @@ nixos-install --root /mnt --flake "github:Atrejooo/nixos_config#${HOST}"
 
 # -- set passwords (always from terminal) ----------
 echo "------------------------------------------------"
-echo "   Setting passwords for root and ${USERNAME}"
+echo "               Setting passwords"
 echo "------------------------------------------------"
 if [[ -z "$USERNAME" ]]; then
     read -p "Enter the username for which to set a password: " USERNAME </dev/tty
