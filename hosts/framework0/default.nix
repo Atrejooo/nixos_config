@@ -16,8 +16,8 @@
       home-manager
       base
       terminal
-      desktop
-      # desktop-home
+      # desktop
+      new-desktop
       # steam
       # minecraft
     ];
