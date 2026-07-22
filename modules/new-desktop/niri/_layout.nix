@@ -1,13 +1,11 @@
 { theme }: /* kdl */ ''
   layout {
-      gaps 2
+      gaps 6
       center-focused-column "never"
       background-color "#00330000"
 
       preset-column-widths {
-          proportion 0.33333
           proportion 0.5
-          proportion 0.66667
           proportion 1.0
       }
       default-column-width { proportion 1.0; }
@@ -16,7 +14,7 @@
 
       border {
           width 3
-          urgent-color "#${theme.textRed}"
+          urgent-color "#${theme.textEmph0}"
           active-gradient from="#${theme.lightMain}" to="#${theme.lightHighlight}" angle=45
           inactive-color "#${theme.darkMain}"
       }
@@ -33,8 +31,14 @@
       struts {
           left 6
           right 6
-          top 10
+          top 6
           bottom 10
+      }
+
+      insert-hint {
+          off
+          // on
+          gradient from="#${theme.lightMain}50" to="#${theme.lightHighlight}50" angle=45 relative-to="workspace-view"
       }
   }
 ''

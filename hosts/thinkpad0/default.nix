@@ -17,6 +17,7 @@
       base
       terminal
       desktop
+      firefox
       # desktop-home
       # steam
       # minecraft

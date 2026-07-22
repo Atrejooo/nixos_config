@@ -59,11 +59,11 @@
         };
     in
     {
-      options.desktop.niri = {
-        outputs = lib.mkOption {
-          type = lib.types.attrs;
-          default = { };
-          description = "Monitor outputs (name -> { mode, scale, position, transform? })";
+      options.new-desktop.niri = {
+        extra = lib.mkOption {
+          type = lib.types.str;
+          default = "";
+          description = "Extra kdl settings";
         };
       };
 
@@ -71,7 +71,6 @@
         environment.systemPackages = [
           pkgs.awww
           pkgs.brightnessctl
-          pkgs.grim
           pkgs.hyprpicker
           pkgs.jq
           pkgs.playerctl
@@ -82,6 +81,9 @@
           pkgs.wl-mirror
           pkgs.wlsunset
           pkgs.xwayland-satellite
+
+          # for now
+          pkgs.waybar
         ];
 
         services.keyd = {
