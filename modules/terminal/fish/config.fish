@@ -14,9 +14,9 @@ function y
 end
 
 function fish_greeting
-    set_color magenta
-    echo "Welcome to fish :)"
-    set_color --reset
+    # set_color magenta
+    # echo "Welcome to fish :)"
+    # set_color --reset
 end
 
 zoxide init fish | source

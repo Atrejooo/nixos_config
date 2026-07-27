@@ -2,8 +2,8 @@ theme: {
   add_newline = true;
   palette = "colors";
   format = ''
-    [╭](fg:txt_highlight)$os$username$sudo$directory$git_branch[](fg:purple)
-    [╰](fg:txt_highlight)$character'';
+    [╭](fg:txt_emph_0)[](fg:txt_main)$os$username$sudo[ ](fg:txt_main bg:light_base)$directory[ ](fg:light_base)$git_branch
+    [╰](fg:txt_emph_0)$character'';
   palettes.colors = {
     dark_base = "#${theme.darkBase}";
     dark_main = "#${theme.darkMain}";
@@ -12,64 +12,64 @@ theme: {
     light_highlight = "#${theme.lightHighlight}";
     txt_main = "#${theme.textMain}";
     txt_dark = "#${theme.textDark}";
-    txt_highlight = "#${theme.textEmph0}";
+    txt_emph_0 = "#${theme.textEmph0}";
+    txt_emph_1 = "#${theme.textEmph1}";
     txt_red = "#${theme.textRed}";
   };
   character = {
-    success_symbol = "[>](txt_highlight)";
+    success_symbol = "[>](txt_emph_0)";
     error_symbol = "[>](txt_red)";
   };
   os = {
     disabled = false;
-    format = "[](fg:blue)[$symbol]($style)";
-    style = "bg:blue fg:dark_main";
+    style = "bg:txt_main fg:dark_main";
   };
   sudo = {
     disabled = false;
-    format = "[ as sudo ]($style)";
-    style = "fg:blue bg:dark_main";
+    format = "[  ]($style)";
+    style = "fg:light_base bg:txt_main";
   };
   username = {
-    format = "[](fg:dark_main bg:blue)[$user]($style)";
-    style_user = "fg:txt_main bg:dark_main";
-    style_root = "fg:txt_main bg:dark_main";
+    style_user = "bg:txt_main fg:dark_main";
+    style_root = "bg:txt_main fg:dark_main";
+
+    format = "[$user]($style)";
     show_always = true;
   };
   directory = {
     read_only = " c#";
+    format = "[$path](fg:txt_main bg:light_base)";
+    truncation_length = 3;
     truncate_to_repo = true;
-    truncation_symbol = "…/";
-    style = "fg:dark_main bg:purple";
-    format = "[](fg:purple bg:dark_main)[ in $path$read_only ]($style)";
+    truncation_symbol = "../";
   };
   git_branch = {
-    style = "fg:green bg:dark_main";
-    format = "[](fg:dark_main bg:purple)[on $symbol$branch(:$remote_branch) ]($style)[](fg:purple bg:dark_main)";
-    truncation_symbol = "…/";
-    symbol = "";
+    format = "[](fg:txt_main)[](fg:light_base bg:txt_main )[](fg:txt_main bg:light_base)[(fg:txt_main bg:light_base) $branch](fg:txt_main bg:light_base)[](fg:light_base) ";
   };
   os.symbols = {
     NixOS = " ";
-    Windows = "󰍲 ";
-    Ubuntu = "󰕈 ";
-    SUSE = " ";
-    Raspbian = "󰐿 ";
-    Mint = "󰣭 ";
-    Macos = "󰀵 ";
-    Manjaro = " ";
-    Linux = "󰌽 ";
-    Gentoo = "󰣨 ";
-    Fedora = "󰣛 ";
+    Arch = "󰣇 ";
+
+    # other cause why not
     Alpine = " ";
     Amazon = " ";
     Android = " ";
-    Arch = "󰣇 ";
     Artix = "󰣇 ";
-    EndeavourOS = " ";
     CentOS = " ";
     Debian = "󰣚 ";
-    Redhat = "󱄛 ";
-    RedHatEnterprise = "󱄛 ";
+    EndeavourOS = " ";
+    Fedora = "󰣛 ";
+    Gentoo = "󰣨 ";
+    Linux = "󰌽 ";
+    Macos = "󰀵 ";
+    Manjaro = " ";
+    Mint = "󰣭 ";
     Pop = " ";
+    Raspbian = "󰐿 ";
+    RedHatEnterprise = "󱄛 ";
+    Redhat = "󱄛 ";
+    SUSE = " ";
+    Ubuntu = "󰕈 ";
+    Windows = "󰍲 ";
   };
 }
