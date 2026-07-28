@@ -24,6 +24,7 @@
       # desktop
       new-desktop
       firefox
+      signal
       opencode
       # steam
       # minecraft

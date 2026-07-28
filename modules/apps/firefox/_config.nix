@@ -48,6 +48,12 @@ let
     "browser.safebrowsing.phishing.enabled" = false;
     "browser.safebrowsing.downloads.enabled" = false;
 
+    # passwords and autofill
+    "signon.rememberSignons" = false;
+    "browser.formfill.enable" = false;
+    "extensions.formautofill.creditCards.enabled" = false;
+    "extensions.formautofill.addresses.enabled" = false;
+
     # visuals and features
     "sidebar.verticalTabs" = true;
   };

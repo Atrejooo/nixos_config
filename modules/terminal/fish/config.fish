@@ -1,4 +1,9 @@
+set -U fish_greeting
+function fish_greeting
+end
+
 if status is-interactive
+
     # Commands to run in interactive sessions can go here
     starship init fish | source
 end
@@ -11,12 +16,6 @@ function y
         builtin cd -- "$cwd"
     end
     rm -f -- "$tmp"
-end
-
-function fish_greeting
-    # set_color magenta
-    # echo "Welcome to fish :)"
-    # set_color --reset
 end
 
 zoxide init fish | source
