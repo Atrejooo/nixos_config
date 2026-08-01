@@ -81,21 +81,6 @@
           pkgs.xwayland-satellite
         ];
 
-        # rebind caps as esc
-        services.keyd = {
-          enable = true;
-          keyboards = {
-            default = {
-              ids = [ "*" ];
-              settings = {
-                main = {
-                  capslock = "esc";
-                };
-              };
-            };
-          };
-        };
-
         programs.niri = {
           enable = true;
           package =

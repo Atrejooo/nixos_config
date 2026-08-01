@@ -14,7 +14,8 @@
       "Mod+O" repeat=false { toggle-overview; }
 
       "Mod+F" { maximize-window-to-edges; }
-      "Mod+Shift+F" { toggle-window-floating; }
+      "Mod+Shift+F" { fullscreen-window; }
+      "Mod+Ctrl+F" { toggle-window-floating; }
 
       "Mod+S" { screenshot; }
       "Mod+Shift+S" { screenshot-screen write-to-disk=false; }

@@ -11,29 +11,32 @@
       {
         config.style.theme = "pale";
         config.style.keyboard = "qwerty";
-        config.new-desktop.niri.extra = ''
-          output "DP-3" = {
+        config.new-desktop.niri.extra = /* kdl */ ''
+          output "DP-3" {
               mode "2560x1440@165.001"
               scale 1.2
-              position x=0 y=0
+              position x=0 y=1200
+              // position x=0 y=1440
           }
-          output "DP-2" = {
-              mode = "2560x1440@165.001"
-              scale = 1.2
-              transform = "180"
-              position x=0 y=-1200
+          output "DP-2" {
+              mode "2560x1440@165.001"
+              scale 1.2
+              transform "180"
+              position x=0 y=0
           }
         '';
       }
       pc0-disko
       pc0-hardware
-      home-manager
       base
       terminal
-      desktop
+      new-desktop
+      home-manager
+
       firefox
+      signal
+
       opencode
-      # desktop-home
 
       steam
       minecraft
