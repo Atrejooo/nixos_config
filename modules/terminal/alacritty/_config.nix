@@ -3,7 +3,7 @@ theme: {
   mouse.hide_when_typing = true;
 
   window = {
-    opacity = 0.7;
+    opacity = 0.5;
     padding = {
       x = 4;
       y = 4;
