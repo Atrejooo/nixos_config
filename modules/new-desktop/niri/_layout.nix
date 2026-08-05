@@ -36,9 +36,9 @@
       }
 
       insert-hint {
-          off
-          // on
-          gradient from="#${theme.lightMain}50" to="#${theme.lightHighlight}50" angle=45 relative-to="workspace-view"
+          // off
+          on
+          gradient from="#${theme.lightMain}30" to="#${theme.lightHighlight}30" angle=45 relative-to="workspace-view"
       }
   }
 ''

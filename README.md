@@ -3,8 +3,8 @@ My minimal, ergonomic setup for everyday use.
 
 **Warning!** This is a personal project, I might make undocumented breaking changes at any time and offer no support.
 
-![Photo](pictures/system_photo.png)
-![Lockscreen photo](pictures/lockscreen_photo.png)
+<!-- ![Photo](pictures/system_photo.png) -->
+<!-- ![Lockscreen photo](pictures/lockscreen_photo.png) -->
 
 Using:
 - `NixOs` operating system
