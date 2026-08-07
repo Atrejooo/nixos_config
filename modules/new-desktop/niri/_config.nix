@@ -6,8 +6,8 @@
 /* kdl */ ''
   ${config.new-desktop.niri.extra}
   ${import ./_layout.nix { inherit theme; }}
+  ${import ./_rules.nix { inherit theme; }}
   ${import ./_animations.nix}
-  ${import ./_rules.nix}
   ${import ./_binds.nix}
   ${import ./_input.nix}
 

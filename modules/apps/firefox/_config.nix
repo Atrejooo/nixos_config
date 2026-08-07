@@ -39,6 +39,7 @@ let
     # used for fingerprinting
     "privacy.donottrackheader.enabled" = false;
     # route DNS request over encrypted connection with cloudfare server
+    # TODO research how to set it to fall back to normal dns resolver as this sometimes makes the browser unusable
     "network.trr.mode" = 3;
     # enable Encrypted Client Hello (ECH)
     "network.dns.echconfig.enabled" = true;

@@ -81,9 +81,6 @@
           pkgs.wl-mirror
           pkgs.wlsunset
           pkgs.xwayland-satellite
-
-          # for now
-          pkgs.waybar
         ];
 
         services.keyd = {
