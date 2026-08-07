@@ -127,10 +127,10 @@
       "on-scroll" = 1;
       format = {
         months = "<span color='#${theme.lightMain}'>{}</span>";
-        days = "<span color='#${theme.lightMain}'>{}</span>";
+        days = "<span color='#${theme.textMain}'>{}</span>";
         weeks = "<span color='#${theme.lightMain}'>W{}</span>";
-        weekdays = "<span color='#${theme.lightMain}'>{}</span>";
-        today = "<span color='#${theme.lightMain}'>{}</span>";
+        weekdays = "<span color='#${theme.textEmph0}'>{}</span>";
+        today = "<span color='#${theme.textEmph1}'>{}</span>";
       };
     };
     actions = {
