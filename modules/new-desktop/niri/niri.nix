@@ -65,6 +65,11 @@
           default = "";
           description = "Extra kdl settings";
         };
+        toggleOutputScale = lib.mkOption {
+          type = lib.types.float;
+          default = 1.0;
+          description = "Output scale to toggle to via the bind";
+        };
       };
 
       config = {
@@ -81,6 +86,39 @@
           pkgs.wl-mirror
           pkgs.wlsunset
           pkgs.xwayland-satellite
+
+          # for now
+          pkgs.waybar
+
+          # Toggles output scale of the focused output in niri from toggleOutputScale to configured scale
+          (pkgs.writeShellApplication {
+            name = "niri-toggle-output-scale";
+            runtimeInputs = with pkgs; [
+              coreutils
+              jq
+            ];
+            text = ''
+              set -euo pipefail
+
+              toggle_scale="${toString config.new-desktop.niri.toggleOutputScale}"
+
+              name="$(niri msg --json focused-output | jq -r .name)"
+              state_dir="''${XDG_RUNTIME_DIR:-/tmp}/niri-scale-toggle"
+              state_file="$state_dir/$name"
+              mkdir -p "$state_dir"
+
+              if [ -f "$state_file" ]; then
+                target="$(cat "$state_file")"
+                rm -f "$state_file"
+              else
+                original="$(niri msg --json outputs | jq -r --arg name "$name" '.[$name].logical.scale')"
+                printf '%s\n' "$original" > "$state_file"
+                target="$toggle_scale"
+              fi
+
+              niri msg output "$name" scale "$target"
+            '';
+          })
         ];
 
         services.keyd = {
