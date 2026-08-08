@@ -40,6 +40,7 @@
           celeste = import ./themes/celeste.nix;
           pale = import ./themes/pale.nix;
           forest = import ./themes/forest.nix;
+          vamp = import ./themes/vamp.nix;
         };
 
         # physical keyboard layouts
