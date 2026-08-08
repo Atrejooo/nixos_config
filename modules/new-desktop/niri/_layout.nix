@@ -13,7 +13,7 @@
       focus-ring { off; }
 
       border {
-          width 3
+          width 2.7
           urgent-color "#${theme.textEmph0}"
           active-gradient from="#${theme.lightMain}" to="#${theme.lightHighlight}" angle=45
           inactive-color "#${theme.darkMain}"

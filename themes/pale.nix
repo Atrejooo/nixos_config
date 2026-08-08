@@ -1,4 +1,6 @@
 rec {
+  wallpaper = ./wallpapers/nature_of_fear.png;
+
   darkBase = "020006";
   darkMain = "111121";
   lightBase = "47476a";

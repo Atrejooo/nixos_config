@@ -1,9 +1,9 @@
 theme: {
-  add_newline = true;
+  add_newline = false;
   palette = "colors";
-  format = ''
-    [╭](fg:txt_emph_0)[](fg:txt_main)$os$username$sudo[ ](fg:txt_main bg:light_base)$directory[ ](fg:light_base)$git_branch
-    [╰](fg:txt_emph_0)$character'';
+  format = "[╭](fg:txt_emph_0)[](fg:txt_main)$os$username$sudo[ ](fg:txt_main bg:light_base)$directory[ ](fg:light_base)$git_branch
+[╰](fg:txt_emph_0)$character";
+
   palettes.colors = {
     dark_base = "#${theme.darkBase}";
     dark_main = "#${theme.darkMain}";

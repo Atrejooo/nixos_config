@@ -15,14 +15,6 @@
     let
       theme = shared.themes.${config.style.theme};
 
-      wallpaper =
-        if config.style.theme == "pale" then
-          ../../desktop/wallpapers/nature_of_fear.png
-        else if config.style.theme == "forest" then
-          ../../desktop/wallpapers/forest_light.jpg
-        else
-          ../../desktop/wallpapers/nature_of_fear.png;
-
       wallpaper-layer =
         { namespace, image }:
         {
@@ -75,20 +67,25 @@
       config = {
         environment.systemPackages = [
           pkgs.awww
-          pkgs.brightnessctl
-          pkgs.hyprpicker
-          pkgs.jq
-          pkgs.playerctl
           pkgs.rose-pine-cursor
-          pkgs.slurp
+
+          pkgs.brightnessctl
+          pkgs.playerctl
+          pkgs.pavucontrol
+
           pkgs.swayidle
+
+          pkgs.xwayland-satellite
+
           pkgs.wl-clipboard
           pkgs.wl-mirror
           pkgs.wlsunset
-          pkgs.xwayland-satellite
 
-          # for now
-          pkgs.waybar
+          pkgs.hyprpicker
+          pkgs.feh
+          pkgs.mpv
+          # gtk mpv wrapper
+          # pkgs.celluloid
 
           # Toggles output scale of the focused output in niri from toggleOutputScale to configured scale
           (pkgs.writeShellApplication {
@@ -150,7 +147,7 @@
         systemd.user.services =
           wallpaper-layer {
             namespace = "backdrop";
-            image = wallpaper;
+            image = theme.wallpaper;
           }
           // {
             swayidle = {

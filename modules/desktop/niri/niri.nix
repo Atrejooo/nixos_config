@@ -13,13 +13,7 @@
       ...
     }:
     let
-      wallpaper =
-        if config.style.theme == "pale" then
-          ../wallpapers/nature_of_fear.png
-        else if config.style.theme == "forest" then
-          ../wallpapers/forest_light.jpg
-        else
-          ../wallpapers/nature_of_fear.png;
+      theme = shared.themes.${config.style.theme};
       wallpaper-layer =
         { namespace, image }:
         {
@@ -91,7 +85,7 @@
         systemd.user.services =
           wallpaper-layer {
             namespace = "backdrop";
-            image = wallpaper;
+            image = theme.wallpaper;
           }
           # swayidle idle daemon
           // {

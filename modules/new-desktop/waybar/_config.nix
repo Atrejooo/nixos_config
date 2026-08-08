@@ -10,6 +10,8 @@
     "user"
     "battery"
     "custom/system-info"
+    # "bluetooth"
+    "privacy"
   ];
   "modules-center" = [
     "niri/workspaces"
@@ -51,6 +53,32 @@
     "return-type" = "json";
     interval = 3;
   };
+  bluetooth = {
+    format = "󰂲";
+    format-disabled = "󰂲";
+    format-off = "󰂲";
+    format-on = "";
+    format-connected = "󰂱";
+    format-connected-battery = "󰂱 ({device_battery_percentage}% )";
+    tooltip-format = "Daemon is not running";
+    tooltip-format-disabled = "Bluetooth is disabled\n{controller_alias}= {controller_address} {controller_address_type}";
+    tooltip-format-off = "Bluetooth is turned off";
+    tooltip-format-on = "Bluetooth is turned on\n{controller_alias}= {controller_address} {controller_address_type}";
+    tooltip-format-connected = "Bluetooth is turned on\n{controller_alias}= {controller_address} {controller_address_type}\n{device_enumerate}";
+    tooltip-format-enumerate-connected = "{device_alias} {device_address} {device_address_type}";
+    on-click = "bluetoothctl power off";
+    on-click-right = "bluetoothctl power on";
+  };
+  privacy = {
+    modules = [
+      {
+        type = "screenshare";
+      }
+      {
+        type = "audio-in";
+      }
+    ];
+  };
   "niri/workspaces" = {
     format = "";
   };
@@ -71,8 +99,8 @@
   };
   pulseaudio = {
     format = "{icon}";
-    "format-bluetooth" = "󱃓 ";
-    "format-bluetooth-muted" = "󱃓  ";
+    "format-bluetooth" = " ";
+    "format-bluetooth-muted" = "X";
     "format-muted" = "X ";
     "format-source" = " {volume}";
     "format-source-muted" = "";

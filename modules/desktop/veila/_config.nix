@@ -1,7 +1,7 @@
 theme: {
   background = {
     mode = "file";
-    path = ../wallpapers/amora-b-celeste-8.jpg;
+    path = theme.wallpaper;
   };
   weather.enabled = false;
   visuals = {

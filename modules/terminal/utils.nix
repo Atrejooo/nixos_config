@@ -11,6 +11,7 @@
         pkgs.btop
         pkgs.dust
         pkgs.fd
+        pkgs.jq
         pkgs.fzf
         pkgs.python3
         pkgs.ripgrep

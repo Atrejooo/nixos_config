@@ -37,11 +37,12 @@
       /* border-radius: 0px 0px 12px 12px; */
       background-image: linear-gradient(
           to bottom,
-          alpha(@dark_base, 0.5) 10%,
-          alpha(@dark_base, 0.3) 50%,
-          alpha(@light_base, 0.2) 80%,
-          alpha(@light_main, 0.1) 90%,
-          alpha(@light_main, 0.4) 100%
+          alpha(@dark_base, 0.6) 10%,
+          alpha(@dark_base, 0.4) 50%,
+          alpha(@dark_base, 0.3) 70%,
+          alpha(@dark_main, 0.2) 85%,
+          alpha(@light_main, 0.1) 95%,
+          alpha(@light_main, 0.3) 100%
       );
   }
 
@@ -58,7 +59,7 @@
 
   /* -- user module (nixos logo + username) -- */
   #user {
-      color: @text_emph_b;
+      color: @text_emph_a;
       font-size: 20px;
       padding: 0 10px 0 14px;
   }
@@ -66,21 +67,25 @@
   /* -- ascii wigits -- */
   #backlight,
   #battery,
+  #bluetooth,
   #clock,
   #custom-system-info,
   #network,
+  #privacy,
   #pulseaudio {
       color: @text_main;
       font-size: 20px;
-      padding: 0 12px;
+      padding: 0 6px;
       transition: all 0.4s ease;
   }
 
   #backlight:hover,
   #battery:hover,
+  #bluetooth:hover,
   #clock:hover,
   #custom-system-info:hover,
-  #network:hover,
+  #network:hover,  
+  #privacy:hover,
   #pulseaudio:hover {
       color: @text_emph_a;
       text-shadow: 0 0 6px @text_emph_a;

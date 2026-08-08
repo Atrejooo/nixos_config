@@ -1,4 +1,6 @@
 rec {
+  wallpaper = ./wallpapers/forest.jpg;
+
   darkBase = "000602";
   darkMain = "112111";
   lightBase = "37472a";

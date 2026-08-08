@@ -1,4 +1,6 @@
 rec {
+  wallpaper = ./wallpapers/amora-b-celeste-8.jpg;
+
   darkBase = "060002";
   darkMain = "211111";
   lightBase = "ab3d77";
