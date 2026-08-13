@@ -2,11 +2,10 @@
   window-rule {
       geometry-corner-radius 10
       clip-to-geometry true
-  }
 
-  window-rule {
-      match app-id="^Alacritty$"
-      background-effect { blur true; }
+      background-effect {
+          blur true
+      }
   }
 
   layer-rule {

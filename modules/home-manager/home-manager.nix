@@ -11,6 +11,10 @@
         useUserPackages = true;
         users.aki = {
           home.stateVersion = "26.05";
+
+          # home.sessionPath = [
+          #   "$HOME/.local/bin"
+          # ];
           gtk = {
             enable = true;
             colorScheme = "dark";
@@ -31,6 +35,10 @@
             publicShare = "$HOME/downloads";
             templates = "$HOME/downloads";
             videos = "$HOME/downloads";
+
+            # extraConfig = {
+            #   LOCAL_BIN = "$HOME/.local/bin";
+            # };
           };
         };
       };

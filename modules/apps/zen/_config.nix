@@ -9,6 +9,8 @@ let
   };
 
   prefs = {
+    # zen specific
+    "zen.welcome-screen.seen" = true;
     # dark theme
     "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
     # block all ai 'features' by default
@@ -58,6 +60,9 @@ let
 
     # visuals and features
     "sidebar.verticalTabs" = true;
+    # native transparency (linux) - the same flags the "Transparent Zen" mod toggles
+    "browser.tabs.allow_transparent_browser" = true;
+    "zen.widget.linux.transparency" = true;
   };
 
   extensions = [

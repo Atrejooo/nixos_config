@@ -25,8 +25,10 @@
       new-desktop
       firefox
       signal
+
       opencode
-      # steam
+
+      steam
       # minecraft
     ];
   };
