@@ -58,6 +58,7 @@
   }
 
   /* -- user module (nixos logo + username) -- */
+  #custom-nixos-logo,
   #user {
       color: @text_emph_a;
       font-size: 20px;
@@ -83,6 +84,7 @@
   #battery:hover,
   #bluetooth:hover,
   #clock:hover,
+  #custom-nixos-logo:hover,
   #custom-system-info:hover,
   #network:hover,  
   #privacy:hover,

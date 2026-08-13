@@ -1,5 +1,5 @@
 {
-  flake.nixosModules.steam = {
+  flake.nixosModules.steam = { pkgs, ... }: {
     programs.steam.enable = true;
 
     # For a problem where mouse input wasn't collected in some steam games,

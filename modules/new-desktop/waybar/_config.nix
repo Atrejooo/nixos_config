@@ -6,24 +6,30 @@
   layer = "top";
   position = "top";
   height = 30;
-  "modules-left" = [
+  modules-left = [
+    "custom/nixos-logo"
     "user"
     "battery"
     "custom/system-info"
     # "bluetooth"
     "privacy"
   ];
-  "modules-center" = [
+  modules-center = [
     "niri/workspaces"
   ];
-  "modules-right" = [
+  modules-right = [
     "backlight"
     "pulseaudio"
     "network"
     "clock"
   ];
+  "custom/nixos-logo" = {
+    format = "";
+    tooltip = false;
+    on-click = "niri msg action toggle-overview";
+  };
   user = {
-    format = " {user}";
+    format = "{user}";
     tooltip = false;
   };
   battery = {
@@ -32,12 +38,12 @@
       critical = 10;
     };
     format = "{capacity} {icon}";
-    "format-warning" = "{capacity} {icon}";
-    "format-critical" = "{capacity} {icon}";
-    "format-full" = "󰇵{icon}";
-    "format-charging" = "{capacity} {icon}";
-    "format-plugged" = "{capacity} {icon}";
-    "format-icons" = [
+    format-warning = "{capacity} {icon}";
+    format-critical = "{capacity} {icon}";
+    format-full = "󰇵{icon}";
+    format-charging = "{capacity} {icon}";
+    format-plugged = "{capacity} {icon}";
+    format-icons = [
       " "
       " "
       " "

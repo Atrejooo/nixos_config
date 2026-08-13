@@ -9,7 +9,7 @@
     specialArgs = { inherit shared; };
     modules = with self.nixosModules; [
       {
-        config.style.theme = "pale";
+        config.style.theme = "forest";
         config.style.keyboard = "qwerty";
         config.new-desktop.niri.extra = /* kdl */ ''
           output "DP-3" {
@@ -25,19 +25,25 @@
           }
         '';
       }
+
       pc0-disko
       pc0-hardware
+
       base
       terminal
       new-desktop
       home-manager
 
+      # desktop apps
       firefox
       signal
 
+      # agents
       opencode
 
+      # games
       steam
+      r2modman
       minecraft
     ];
   };
