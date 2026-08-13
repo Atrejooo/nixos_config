@@ -1,7 +1,11 @@
 { theme }: /* kdl */ ''
   window-rule {
-      geometry-corner-radius 10
+      geometry-corner-radius 12
       clip-to-geometry true
+
+      // draw focus and border ring as borders around the window
+      // even for windows which use client-side decorations
+      draw-border-with-background false
 
       background-effect {
           blur true
