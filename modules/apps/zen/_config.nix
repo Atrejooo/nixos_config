@@ -9,8 +9,6 @@ let
   };
 
   prefs = {
-    # zen specific
-    "zen.welcome-screen.seen" = true;
     # dark theme
     "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
     # block all ai 'features' by default
@@ -58,9 +56,30 @@ let
     "extensions.formautofill.creditCards.enabled" = false;
     "extensions.formautofill.addresses.enabled" = false;
 
-    # native transparency (linux) - the same flags the "Transparent Zen" mod toggles
-    "browser.tabs.allow_transparent_browser" = true;
+    # -----------------------------------------------
+    # Zen-specific settings
+    # -----------------------------------------------
+    # skip the first-run welcome screen
+    "zen.welcome-screen.seen" = true;
+
+    # native window transparency on Wayland/niri
+    # the zen.* prefs drive Zen's theme engine; the browser./widget. prefs
+    # below are core Firefox prefs required so the semi-transparent pixels
+    # actually reach the compositor (niri) and its background blur shows through.
     "zen.widget.linux.transparency" = true;
+    "zen.theme.acrylic-elements" = true;
+    "zen.view.grey-out-inactive-windows" = false;
+
+    # REQUIRED on tiling WMs (niri): draw the tab strip below the GTK CSD
+    # titlebar. With tabs in the titlebar (default), GTK paints the decoration
+    # surface fully opaque and transparency only appears when the window is
+    # maximized (zen-browser/desktop#10243) -- niri never maximizes, so the
+    # whole window stayed opaque without this.
+    "browser.tabs.inTitlebar" = 0;
+    # let the window have an alpha channel at all
+    "browser.tabs.allow_transparent_browser" = true;
+    # don't advertise opaque regions, so niri can't treat the window as opaque
+    "widget.wayland.opaque-region.enabled" = false;
   };
 
   extensions = [

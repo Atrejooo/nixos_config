@@ -4,7 +4,7 @@
   ...
 }:
 {
-  flake.nixosModules.firefox =
+  flake.nixosModules.zen =
     {
       pkgs,
       ...

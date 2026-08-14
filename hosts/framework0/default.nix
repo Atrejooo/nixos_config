@@ -18,16 +18,20 @@
         '';
       }
       framework0-hardware
-      home-manager
+
       base
       terminal
-      # desktop
       new-desktop
-      firefox
+      home-manager
+
+      # desktop apps
+      zen
       signal
 
+      # agents
       opencode
 
+      # games
       steam
       # minecraft
     ];

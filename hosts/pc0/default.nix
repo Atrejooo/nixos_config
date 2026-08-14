@@ -35,7 +35,7 @@
       home-manager
 
       # desktop apps
-      firefox
+      zen
       signal
 
       # agents
