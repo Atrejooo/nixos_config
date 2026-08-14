@@ -58,8 +58,6 @@ let
     "extensions.formautofill.creditCards.enabled" = false;
     "extensions.formautofill.addresses.enabled" = false;
 
-    # visuals and features
-    "sidebar.verticalTabs" = true;
     # native transparency (linux) - the same flags the "Transparent Zen" mod toggles
     "browser.tabs.allow_transparent_browser" = true;
     "zen.widget.linux.transparency" = true;
