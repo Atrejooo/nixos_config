@@ -1,7 +1,7 @@
 /* kdl */ ''
   binds {
       "Mod+Q" { spawn "alacritty"; }
-      "Mod+W" { spawn "firefox"; }
+      "Mod+W" { spawn "zen"; }
 
       "Mod+R" { spawn-sh "alacritty -e sh -c \"r && sleep 0.1\""; }
 
