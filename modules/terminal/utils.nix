@@ -8,7 +8,6 @@
       services.udisks2.enable = true;
       environment.systemPackages = [
         pkgs.bat
-        pkgs.btop
         pkgs.dust
         pkgs.fd
         pkgs.jq
