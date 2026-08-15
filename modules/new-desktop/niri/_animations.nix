@@ -14,8 +14,9 @@
       }
 
       window-open {
-          duration-ms 150
-          curve "ease-out-expo"
+          duration-ms 300
+          curve "ease-out-cubic"
+          custom-shader r"${builtins.readFile ./open_shader.glsl}"
       }
 
       window-close {

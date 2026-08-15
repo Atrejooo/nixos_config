@@ -14,18 +14,18 @@
 
       border {
           width 2.7
-          urgent-color "#${theme.textEmph0}"
-          active-gradient from="#${theme.lightMain}" to="#${theme.lightHighlight}" angle=45
-          inactive-color "#${theme.darkMain}"
+          urgent-color "#${theme.textEmph0}cc"
+          active-gradient from="#${theme.lightMain}cc" to="#${theme.lightHighlight}cc" angle=45
+          inactive-color "#${theme.darkMain}cc"
       }
 
       shadow {
           on
-          softness 0
-          spread 0
+          softness 20
+          spread 10
           offset x=0 y=6
-          color "#${theme.lightBase}"
-          inactive-color "#${theme.darkBase}"
+          color "#${theme.darkBase}a0"
+          inactive-color "#${theme.darkBase}a0"
       }
 
       struts {
