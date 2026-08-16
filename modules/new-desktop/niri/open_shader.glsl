@@ -47,17 +47,19 @@ vec4 open_color(vec3 coords_geo, vec3 size_geo) {
     // -- params --
     // delays the start of the wave
     float shockwave_p_delay = 0.20;
-    // makes the wave travel further and faster
-    float shockwave_speed_f = 1.2;
+    // controls overall strenght of the wave
+    float shockwave_strength_f = 0.14;
+    // makes the wave travel further and faster (dependent on window size)
+    float shockwave_speed_f = 0.8 * max(size_geo.x, size_geo.y);
+    // wave ripple zoom
+    float shockwave_zoom = 0.04;
     // where in the progress should the wave be most prominent
     float p_mask_peak = 0.15;
     // progress peak lenght (plateau lenght)
     float p_mask_peak_lenght = 0.1;
-    // controls overall strenght of the wave
-    float shockwave_strength_f = 0.14;
     // controls the size of the falloff edge size at the edge of the uv sapce of a window for the wave
     // 0.1 means from uv 0.9 to 1.0 and 0.1 to 0.0 the wave distortion is decayed via smoothstep 
-    float shockwave_edge_mask_edge = 0.05;
+    float shockwave_border_mask_edge = 0.05;
 
     // -- computing --
     float shockwave_p = clamp((niri_progress - shockwave_p_delay) / (1.0 - shockwave_p_delay), 0.0, 1.0);
@@ -66,7 +68,8 @@ vec4 open_color(vec3 coords_geo, vec3 size_geo) {
 
     // * size_geo.x * xxx makes the wave depend on screen space instead of window space
     //     - i.e. small windows have the same wave
-    float shockwave_sd = (shockwave_p * shockwave_speed_f - length(aspect_norm_pos)) * size_geo.x * 0.015;
+    float shockwave_sd = (shockwave_p * shockwave_speed_f - length(size_geo.xy * pos)) * shockwave_zoom;
+     
     // applies a mask based on progress to the strenght via two smoothstep going 0 -> 1 -> 0 in one smooth slope 
     float strenght_p_mask = smoothstep(0.0, p_mask_peak, shockwave_p)
         * (1.0 - smoothstep(p_mask_peak + p_mask_peak_lenght, 1.0, shockwave_p)); 
@@ -77,8 +80,8 @@ vec4 open_color(vec3 coords_geo, vec3 size_geo) {
     // controls overall strenght of the wave
     shockwave_strength *= shockwave_strength_f;
 
-    shockwave_strength *= 1.0 - smoothstep(0.5 - shockwave_edge_mask_edge, 0.5, abs(pos.x));
-    shockwave_strength *= 1.0 - smoothstep(0.5 - shockwave_edge_mask_edge, 0.5, abs(pos.y));
+    shockwave_strength *= 1.0 - smoothstep(0.5 - shockwave_border_mask_edge, 0.5, abs(pos.x));
+    shockwave_strength *= 1.0 - smoothstep(0.5 - shockwave_border_mask_edge, 0.5, abs(pos.y));
 
     // apply shockwave 
     distorted += shockwave_strength * normalize(aspect_norm_pos);

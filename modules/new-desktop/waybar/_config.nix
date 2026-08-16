@@ -58,6 +58,7 @@
     exec = pkgs.writeShellScript "waybar-system-info" (builtins.readFile ./system-info.sh);
     "return-type" = "json";
     interval = 3;
+    on-click = "alacritty -e btop";
   };
   bluetooth = {
     format = "󰂲";
