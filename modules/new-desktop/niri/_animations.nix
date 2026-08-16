@@ -14,8 +14,9 @@
       }
 
       window-open {
-          duration-ms 300
-          curve "ease-out-cubic"
+          duration-ms 600
+          // linear as the shader computes its own curves
+          curve "linear"
           custom-shader r"${builtins.readFile ./open_shader.glsl}"
       }
 
