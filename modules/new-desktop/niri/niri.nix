@@ -62,6 +62,11 @@
           default = 1.0;
           description = "Output scale to toggle to via the bind";
         };
+        browser-cmd = lib.mkOption {
+          type = lib.types.str;
+          default = "zen";
+          description = "output settings for niri";
+        };
       };
 
       config = {

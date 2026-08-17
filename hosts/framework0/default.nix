@@ -11,6 +11,7 @@
       {
         config.style.theme = "forest";
         config.style.keyboard = "qwerty";
+        config.new-desktop.niri.browser-cmd = "firefox";
         config.new-desktop.niri.extra = /* kdl */ ''
           output "eDP-1" {
               scale 1.5
@@ -26,6 +27,7 @@
 
       # desktop apps
       zen
+      firefox
       signal
 
       # agents

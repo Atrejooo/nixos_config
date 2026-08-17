@@ -5,10 +5,10 @@
 }:
 /* kdl */ ''
   ${config.new-desktop.niri.extra}
+  ${import ./_binds.nix { browser-cmd = config.new-desktop.niri.browser-cmd; }}
   ${import ./_layout.nix { inherit theme; }}
   ${import ./_rules.nix { inherit theme; }}
   ${import ./_animations.nix}
-  ${import ./_binds.nix}
   ${import ./_input.nix}
 
   spawn-at-startup "waybar"
