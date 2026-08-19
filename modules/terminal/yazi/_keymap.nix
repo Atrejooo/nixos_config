@@ -21,7 +21,7 @@ let
       prepend_keymap = [
         {
           on = "Y";
-          run = ''shell  "dragon-drop -x -A \"$@\"" --confirm'';
+          run = ''shell  "dragon-drop -x -A %s" --confirm'';
           desc = "dragon drop it!";
         }
         {
@@ -31,7 +31,7 @@ let
         }
         {
           on = "A";
-          run = ''shell "archiver  \"$@\" # enter format (7z, tar.gz, zip)" --cursor=9 --interactive'';
+          run = ''shell "archiver %s # enter format (7z, tar.gz, zip)" --cursor=9 --interactive'';
           desc = "Archive selected file(s) with format prompt";
         }
       ];

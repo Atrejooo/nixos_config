@@ -1,3 +1,34 @@
+/*
+  Yazi tokens (used in `run` and `shell` commands)
+
+  Selected files
+  - %s   - all selected files (space-separated, shell-escaped)
+  - %s1  - 1st selected file
+  - %s2  - 2nd selected file
+  - %sN  - Nth selected file
+  - %S   - all selected files as file:// URLs
+  - %S1  - 1st selected file as URL
+
+  Hovered file
+  - %h   - hovered file path
+  - %H   - hovered file as URL
+
+  Directories
+  - %d   - dirname of all selected files
+  - %d1  - dirname of 1st selected file
+  - %D   - dirname as URL
+
+  Tab / Yank
+  - %t   - switch to next tab context
+  - %T   - switch to prev tab context
+  - %y   - yanked files
+  - %Y   - yanked URLs
+
+  Misc
+  - %%   - literal %
+
+  NOTE: paths are shell-escaped automatically, no "$@" needed.
+*/
 {
   mgr = {
     ratio = [
@@ -17,27 +48,27 @@
   opener = {
     edit = [
       {
-        run = "hx $1";
+        run = "hx %s1";
         desc = "hx";
         block = true;
       }
     ];
     pdf-open = [
       {
-        run = "zen-browser $1";
+        run = "zen-browser %s1";
         desc = "open firefox";
         block = false;
       }
     ];
     play = [
       {
-        run = ''mpv --force-window "$@"'';
+        run = "mpv --force-window %s";
         orphan = true;
       }
     ];
     audio-open = [
       {
-        run = ''mpv "$@"'';
+        run = "mpv %s";
         for = "unix";
       }
     ];
