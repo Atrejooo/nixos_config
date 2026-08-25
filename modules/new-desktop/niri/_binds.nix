@@ -1,4 +1,4 @@
-{ browser-cmd }: /* kdl */ ''
+{ browser-cmd, theme }: /* kdl */ ''
   binds {
       "Mod+Q" { spawn "alacritty"; }
       "Mod+W" { spawn "${browser-cmd}"; }
@@ -6,7 +6,7 @@
       "Mod+R" { spawn-sh "alacritty -e sh -c \"r && sleep 0.1\""; }
 
       "Mod+C" repeat=false { close-window; }
-      "Mod+X" { spawn-sh "pkill waybar || waybar"; }
+      "Mod+X" repeat=false { spawn-sh "pkill waybar || waybar"; }
 
       "Mod+G" { switch-preset-column-width; }
       "Mod+Shift+G" { switch-preset-column-width-back; }
@@ -27,7 +27,8 @@
       "Mod+Shift+S" { screenshot-screen write-to-disk=false; }
       "Mod+Ctrl+S" { screenshot-screen; }
 
-      "Mod+A" { spawn-sh "hyprpicker -aq"; }
+      "Mod+A" repeat=false { spawn-sh "niri-toggle-chamel '#${theme.textEmph1}'"; }
+      "Mod+Shift+A" repeat=false { spawn-sh "hyprpicker -aq"; }
       
       // mirror screen
       "Mod+Alt+M" repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }

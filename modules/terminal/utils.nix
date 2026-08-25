@@ -9,6 +9,7 @@
       environment.systemPackages = [
         pkgs.bat
         pkgs.dust
+        pkgs.tree
         pkgs.fd
         pkgs.jq
         pkgs.fzf

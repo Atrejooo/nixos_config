@@ -87,10 +87,30 @@
           pkgs.wlsunset
 
           pkgs.hyprpicker
+          pkgs.chameleos
           pkgs.feh
           pkgs.mpv
           # gtk mpv wrapper
           # pkgs.celluloid
+
+          (pkgs.writeShellApplication {
+            name = "niri-toggle-chamel";
+            runtimeInputs = with pkgs; [
+              chameleos
+              procps
+            ];
+            text = ''
+              set -euo pipefail
+              color="''${1:-#ff3065}"
+              if pgrep chameleos > /dev/null 2>&1; then
+                pkill chameleos
+              else
+                chameleos --stroke-color "$color" --stroke-width 5 &
+                sleep 0.1
+                chamel toggle
+              fi
+            '';
+          })
 
           # Toggles output scale of the focused output in niri from toggleOutputScale to configured scale
           (pkgs.writeShellApplication {
