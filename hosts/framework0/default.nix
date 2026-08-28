@@ -32,6 +32,7 @@
 
       # agents
       opencode
+      goose
 
       # games
       steam
