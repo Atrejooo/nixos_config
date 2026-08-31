@@ -9,7 +9,7 @@
     specialArgs = { inherit shared; };
     modules = with self.nixosModules; [
       {
-        config.style.theme = "forest";
+        config.style.theme = "vamp";
         config.style.keyboard = "qwerty";
         config.new-desktop.niri.extra = /* kdl */ ''
           output "DP-3" {
