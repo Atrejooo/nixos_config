@@ -11,7 +11,7 @@ rec {
   textEmph0 = "a0d070";
   textEmph1 = "82d4fC";
   textEmph2 = "fff86f";
-  textPale = "508a3b";
+  textPale = "50aa4b";
   textSelect = "00236d";
 
   textDark = "112111";

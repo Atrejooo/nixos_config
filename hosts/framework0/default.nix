@@ -25,16 +25,19 @@
       new-desktop
       home-manager
 
-      # desktop apps
+      ### desktop apps
       zen
       # firefox
       signal
 
-      # agents
+      ## creative apps
+      blender
+
+      ### agents
       opencode
       goose
 
-      # games
+      ### games
       steam
       # minecraft
     ];
