@@ -1,5 +1,5 @@
 rec {
-  wallpaper = ./wallpapers/forest_light.jpg;
+  wallpaper = ./wallpapers/forest.jpg;
 
   darkBase = "000602";
   darkMain = "112111";
