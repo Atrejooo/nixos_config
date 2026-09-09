@@ -16,6 +16,10 @@
           output "eDP-1" {
               scale 1.5
           }
+          output "Samsung Electric Company SAMSUNG Unknown" {
+              mode "2560x1440@59.951"
+              scale 1.2
+          }
         '';
       }
       framework0-hardware
