@@ -1,52 +1,15 @@
 { browser-cmd, theme }: /* kdl */ ''
   binds {
+      // ### LIFE AND DEATH ###
       "Mod+Q" { spawn "alacritty"; }
       "Mod+W" { spawn "${browser-cmd}"; }
-
-      "Mod+R" { spawn-sh "alacritty -e sh -c \"r && sleep 0.1\""; }
-
-      "Mod+C" repeat=false { close-window; }
-      "Mod+X" repeat=false { spawn-sh "pkill waybar || waybar"; }
-
-      "Mod+G" { switch-preset-column-width; }
-      "Mod+Shift+G" { switch-preset-column-width-back; }
-
-      "Mod+O" repeat=false { toggle-overview; }
-
-      // toggle focus to the other monitor
-      "Mod+Tab" { focus-monitor-previous; }
-
-      // move focused window to the other monitor
-      "Mod+Shift+Tab" { move-window-to-monitor-previous; }
-
-      "Mod+F" { maximize-window-to-edges; }
-      "Mod+Shift+F" { fullscreen-window; }
-      "Mod+Ctrl+F" { toggle-window-floating; }
-
-      "Mod+S" { screenshot; }
-      "Mod+Shift+S" { screenshot-screen write-to-disk=false; }
-      "Mod+Ctrl+S" { screenshot-screen; }
-
-      "Mod+A" repeat=false { spawn-sh "niri-toggle-chamel '#${theme.textEmph1}'"; }
-      "Mod+Shift+A" repeat=false { spawn-sh "hyprpicker -aq"; }
-      
-      // mirror screen
-      "Mod+Alt+M" repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }
-
-      // toggle output scale
-      "Mod+P" repeat=false { spawn "niri-toggle-output-scale"; }
-
       "Mod+E" { spawn-sh "alacritty -e yazi"; }
-      "Mod+Shift+E" { spawn-sh "kitty -e yazi"; }
+      "Mod+R" { spawn-sh "alacritty -e sh -c \"r && sleep 0.1\""; }
       "Mod+T" { spawn "signal-desktop"; }
+      "Mod+C" repeat=false { close-window; }
 
-      "Mod+B" { spawn-sh "pkill wlsunset || wlsunset -t 2500 -T 3000 -g 0.7"; }
-
-      "Mod+Shift+M" { quit skip-confirmation=true; }
-      "Mod+Shift+Ctrl+M" { spawn-sh "shutdown now"; }
-      "Mod+N" { spawn-sh "veila lock"; }
-      "Mod+Shift+N" { spawn-sh "veila lock --wait-ready && systemctl suspend"; }
-
+      // ### MOVEMENT AND CONTROL ###
+      // ## workspaces ##
       "Mod+1" { focus-workspace "1"; }
       "Mod+2" { focus-workspace "2"; }
       "Mod+3" { focus-workspace "3"; }
@@ -66,14 +29,25 @@
       "Mod+Shift+8" { move-window-to-workspace "8"; }
       "Mod+Shift+9" { move-window-to-workspace "9"; }
 
+      // relative
+      "Mod+U" { focus-workspace-down; }
+      "Mod+D" { focus-workspace-up; }
+      "Mod+Shift+U" { move-window-to-workspace-down; }
+      "Mod+Shift+D" { move-window-to-workspace-up; }
+      "Mod+Ctrl+U" { move-workspace-down; }
+      "Mod+Ctrl+D" { move-workspace-up; }
+      // via mouse
       "Mod+WheelScrollDown" cooldown-ms=150 { focus-workspace-down; }
       "Mod+WheelScrollUp" cooldown-ms=150 { focus-workspace-up; }
       "Mod+Shift+WheelScrollDown" cooldown-ms=150 { move-window-to-workspace-down; }
       "Mod+Shift+WheelScrollUp" cooldown-ms=150 { move-window-to-workspace-up; }
 
-      "Mod+Comma" { consume-window-into-column; }
-      "Mod+Period" { expel-window-from-column; }
+      // ## monitors ##
+      "Mod+Tab" { focus-monitor-previous; }
+      "Mod+Shift+Tab" { move-window-to-monitor-previous; }
 
+
+      // ## movement ##
       "Mod+H" { focus-column-left; }
       "Mod+J" { focus-window-down; }
       "Mod+K" { focus-window-up; }
@@ -82,22 +56,56 @@
       "Mod+Ctrl+J" { move-window-down; }
       "Mod+Ctrl+K" { move-window-up; }
       "Mod+Ctrl+L" { move-column-right; }
+
+      // ## scale/width ##
+      "Mod+G" { switch-preset-column-width; }
+      "Mod+Shift+G" { switch-preset-column-width-back; }
       "Mod+Shift+H" { set-column-width "-10%"; }
       "Mod+Shift+J" { set-window-height "+10%"; }
       "Mod+Shift+K" { set-window-height "-10%"; }
       "Mod+Shift+L" { set-column-width "+10%"; }
+      // collumn control
+      "Mod+Comma" { consume-window-into-column; }
+      "Mod+Period" { expel-window-from-column; }
+      // floating and fullscreen
+      "Mod+F" { maximize-window-to-edges; }
+      "Mod+Shift+F" { fullscreen-window; }
+      "Mod+Ctrl+F" { toggle-window-floating; }
+    
+      // ### ACTIONS ###
+      "Mod+O" repeat=false { toggle-overview; }
+      // screen shots
+      "Mod+S" { screenshot; }
+      "Mod+Shift+S" { screenshot-screen write-to-disk=false; }
+      "Mod+Ctrl+S" { screenshot-screen; }
+      // picker
+      "Mod+Shift+A" repeat=false { spawn-sh "hyprpicker -aq"; }
+      // mirror screen
+      "Mod+Alt+M" repeat=false { spawn-sh "wl-mirror $(niri msg --json focused-output | jq -r .name)"; }
 
-      "Mod+U" { focus-workspace-down; }
-      "Mod+D" { focus-workspace-up; }
-      "Mod+Shift+U" { move-window-to-workspace-down; }
-      "Mod+Shift+D" { move-window-to-workspace-up; }
-      "Mod+Ctrl+U" { move-workspace-down; }
-      "Mod+Ctrl+D" { move-workspace-up; }
+      // ## toggles ##
+      "Mod+X" repeat=false { spawn-sh "pkill waybar || waybar"; }
+      "Mod+B" { spawn-sh "pkill wlsunset || wlsunset -t 2500 -T 3000 -g 0.7"; }
+      "Mod+A" repeat=false { spawn-sh "niri-toggle-chamel '#${theme.textEmph1}'"; }
+      "Mod+P" repeat=false { spawn "niri-toggle-output-scale"; }
 
-      "Mod+Escape" allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+      // ## system ctl ##
+      "Mod+Shift+M" { quit skip-confirmation=true; }
+      "Mod+Shift+Ctrl+M" { spawn-sh "shutdown now"; }
+      "Mod+N" { spawn-sh "veila lock"; }
+      "Mod+Shift+N" { spawn-sh "veila lock --wait-ready && systemctl suspend"; }
 
+      /// ### TYPING ###
+      // ## special chars: ä, ü, ö, ß, Ä, Ü, Ö ##
+      "Alt+A" { spawn-sh "wtype ä"; }
+      "Alt+U" { spawn-sh "wtype ü"; }
+      "Alt+O" { spawn-sh "wtype ö"; }
+      "Alt+z" { spawn-sh "wtype ß"; }
+      "Alt+Shift+A" { spawn-sh "wtype Ä"; }
+      "Alt+Shift+U" { spawn-sh "wtype Ü"; }
+      "Alt+Shift+O" { spawn-sh "wtype Ö"; }
       
-      // laptop buttons
+      // ### LAPTOP BUTTONS ###
       XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+ -l 1.0"; }
       XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
       Shift+XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 0.05+ -l 1.0"; }
@@ -113,5 +121,8 @@
       XF86MonBrightnessDown allow-when-locked=true { spawn-sh "brightnessctl --class=backlight set 10%-"; }
       Shift+XF86MonBrightnessUp allow-when-locked=true { spawn-sh "brightnessctl --class=backlight set +1%"; }
       Shift+XF86MonBrightnessDown allow-when-locked=true { spawn-sh "brightnessctl --class=backlight set 1%-"; }
+
+      // idk
+      "Mod+Escape" allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
   }
 ''

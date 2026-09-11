@@ -85,6 +85,7 @@
           pkgs.wl-clipboard
           pkgs.wl-mirror
           pkgs.wlsunset
+          pkgs.wtype
 
           pkgs.hyprpicker
           pkgs.chameleos
