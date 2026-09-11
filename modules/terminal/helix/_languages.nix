@@ -65,6 +65,19 @@
       ];
     }
 
+    {
+      name = "typst";
+      auto-format = true;
+      scope = "source.typ";
+      roots = [
+        ".git"
+      ];
+      file-types = [ "typ" ];
+      formatter = {
+        command = "typstyle";
+      };
+    }
+
     # {
     #   name = "toml";
     #   file-types = [ "toml" ];
