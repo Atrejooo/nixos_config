@@ -18,6 +18,11 @@
   }
 
   layer-rule {
+      match namespace="^awww-daemon$"
+      place-within-backdrop true
+  }
+
+  layer-rule {
       match namespace="^waybar$"
 
       shadow {

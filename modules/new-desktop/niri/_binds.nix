@@ -7,6 +7,8 @@
       "Mod+R" { spawn-sh "alacritty -e sh -c \"r && sleep 0.1\""; }
       "Mod+T" { spawn "signal-desktop"; }
       "Mod+C" repeat=false { close-window; }
+      // force-close the focused window (SIGKILL)
+      "Mod+Shift+C" repeat=false { spawn "niri-force-kill-focused"; }
 
       // ### MOVEMENT AND CONTROL ###
       // ## workspaces ##

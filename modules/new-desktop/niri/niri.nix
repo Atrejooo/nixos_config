@@ -14,41 +14,6 @@
     }:
     let
       theme = shared.themes.${config.style.theme};
-
-      wallpaper-layer =
-        { namespace, image }:
-        {
-          "awww-${namespace}" = {
-            partOf = [ "graphical-session.target" ];
-            after = [ "graphical-session.target" ];
-            requisite = [ "graphical-session.target" ];
-            wantedBy = [ "niri.service" ];
-            serviceConfig = {
-              Type = "simple";
-              ExecStart = "${lib.getExe' pkgs.awww "awww-daemon"} --no-cache --namespace ${namespace}";
-            };
-          };
-          "wallpaper-${namespace}" = {
-            partOf = [ "awww-${namespace}.service" ];
-            after = [ "awww-${namespace}.service" ];
-            wantedBy = [ "niri.service" ];
-            serviceConfig = {
-              Type = "oneshot";
-              ExecStart = pkgs.writeShellScript "wallpaper-${namespace}" ''
-                max_retries=60
-                retry=0
-                sleep 0.02
-                while ! ${lib.getExe' pkgs.awww "awww"} img -t center --transition-duration 0.5 --namespace ${namespace} ${image}; do
-                  retry=$((retry + 1))
-                  if [ "$retry" -ge "$max_retries" ]; then
-                    exit 1
-                  fi
-                  sleep 0.02
-                done
-              '';
-            };
-          };
-        };
     in
     {
       options.new-desktop.niri = {
@@ -142,6 +107,35 @@
               niri msg output "$name" scale "$target"
             '';
           })
+
+          # Force kills the focused window with SIGKILL, resolving XWayland clients
+          (pkgs.writeShellApplication {
+            name = "niri-force-kill-focused";
+            runtimeInputs = with pkgs; [
+              coreutils
+              jq
+              xprop
+            ];
+            text = ''
+              set -euo pipefail
+
+              pid="$(niri msg --json focused-window | jq -r '.pid // empty')"
+              [ -n "$pid" ] || exit 0
+
+              if [ -r "/proc/$pid/comm" ] && grep -qi xwayland "/proc/$pid/comm"; then
+                if ! wid="$(xprop -root -notype _NET_ACTIVE_WINDOW 2>/dev/null | grep -o '0x[0-9a-fA-F]\+')" || [ -z "$wid" ]; then
+                  exit 0
+                fi
+                if ! real_pid="$(xprop -id "$wid" -notype _NET_WM_PID 2>/dev/null | grep -oE '[0-9]+')" || [ -z "$real_pid" ]; then
+                  exit 0
+                fi
+              else
+                real_pid="$pid"
+              fi
+
+              kill -9 "$real_pid"
+            '';
+          })
         ];
 
         services.keyd = {
@@ -170,23 +164,50 @@
           };
         };
 
-        systemd.user.services =
-          wallpaper-layer {
-            namespace = "backdrop";
-            image = theme.wallpaper;
-          }
-          // {
-            swayidle = {
-              partOf = [ "graphical-session.target" ];
-              after = [ "graphical-session.target" ];
-              requisite = [ "graphical-session.target" ];
-              wantedBy = [ "niri.service" ];
-              serviceConfig = {
-                Type = "simple";
-                ExecStart = "${lib.getExe pkgs.swayidle} -w timeout 300 'veila lock --wait-ready' timeout 500 'niri msg action power-off-monitors' timeout 600 'systemctl suspend'";
-              };
+        systemd.user.services = {
+          awww = {
+            partOf = [ "graphical-session.target" ];
+            after = [ "graphical-session.target" ];
+            requisite = [ "graphical-session.target" ];
+            wantedBy = [ "niri.service" ];
+            serviceConfig = {
+              Type = "simple";
+              ExecStart = "${lib.getExe' pkgs.awww "awww-daemon"}";
             };
           };
+
+          wallpaper = {
+            partOf = [ "awww.service" ];
+            after = [ "awww.service" ];
+            wantedBy = [ "niri.service" ];
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = pkgs.writeShellScript "wallpaper" ''
+                max_retries=60
+                retry=0
+                sleep 0.02
+                while ! ${lib.getExe' pkgs.awww "awww"} img -t fade --transition-duration 0.5 ${theme.wallpaper}; do
+                  retry=$((retry + 1))
+                  if [ "$retry" -ge "$max_retries" ]; then
+                    exit 1
+                  fi
+                  sleep 0.02
+                done
+              '';
+            };
+          };
+
+          swayidle = {
+            partOf = [ "graphical-session.target" ];
+            after = [ "graphical-session.target" ];
+            requisite = [ "graphical-session.target" ];
+            wantedBy = [ "niri.service" ];
+            serviceConfig = {
+              Type = "simple";
+              ExecStart = "${lib.getExe pkgs.swayidle} -w timeout 300 'veila lock --wait-ready' timeout 500 'niri msg action power-off-monitors' timeout 600 'systemctl suspend'";
+            };
+          };
+        };
 
         login.sessionCommand = "niri-session";
       };
