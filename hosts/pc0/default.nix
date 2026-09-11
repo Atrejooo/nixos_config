@@ -9,7 +9,7 @@
     specialArgs = { inherit shared; };
     modules = with self.nixosModules; [
       {
-        config.style.theme = "forest";
+        config.style.theme = "ocean";
         config.style.keyboard = "qwerty";
         config.new-desktop.niri.extra = /* kdl */ ''
           output "DP-3" {
@@ -34,14 +34,18 @@
       new-desktop
       home-manager
 
-      # desktop apps
+      ### desktop apps
       zen
+      # firefox
       signal
 
-      # agents
+      ## creative apps
+      blender
+
+      ### agents
       opencode
 
-      # games
+      ### games
       steam
       r2modman
       minecraft
