@@ -37,7 +37,7 @@
       4
     ];
     sort_by = "natural";
-    show_hidden = true;
+    show_hidden = false;
     title_format = "Yazi: {cwd}";
   };
   preview = {
@@ -48,15 +48,15 @@
   opener = {
     edit = [
       {
-        run = "hx %s1";
+        run = "hx %s";
         desc = "hx";
         block = true;
       }
     ];
     pdf-open = [
       {
-        run = "zen-browser %s1";
-        desc = "open firefox";
+        run = "zen %s";
+        desc = "open zen";
         block = false;
       }
     ];
