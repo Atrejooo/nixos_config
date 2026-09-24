@@ -9,7 +9,7 @@
     specialArgs = { inherit shared; };
     modules = with self.nixosModules; [
       {
-        config.style.theme = "ocean";
+        config.style.theme = "forest";
         config.style.keyboard = "qwerty";
         # config.new-desktop.niri.browser-cmd = "firefox";
         config.new-desktop.niri.extra = /* kdl */ ''
@@ -19,6 +19,9 @@
           output "Samsung Electric Company SAMSUNG Unknown" {
               mode "2560x1440@59.951"
               scale 1.2
+          }
+          output "Dell Inc. DELL P3222QE B54S6H3" {
+              scale 1.6
           }
         '';
       }
